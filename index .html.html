@@ -1,0 +1,3315 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="dashboard">
+  <meta name="design-style" content="deco">
+  <title>DTV Makeup Roster — TV Derana Makeup Department</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Josefin+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      color-scheme: dark;
+
+      /* 1. Deco style foundation adapted to Deep Plum & Burnished Gold */
+      --background: #140a16;
+      --surface-container-low: #1d0f20;
+      --surface-container: #26142a;
+      --surface-container-high: #341c39;
+
+      /* Ink */
+      --on-surface: #f5ecf3;
+      --on-surface-variant: #cfc0cc;
+
+      /* Rules */
+      --outline: #d4af5a;
+      --outline-variant: #654868;
+
+      /* Accents */
+      --primary: #d4af5a;
+      --on-primary: #140a16;
+      --primary-container: #382819;
+      --on-primary-container: #f0d792;
+      --secondary: #d98cb3;
+      --tertiary: #e6c778;
+      --error: #e87a7a;
+      --on-error: #140a16;
+
+      /* Data series */
+      --data-1: #d4af5a;
+      --data-2: #d98cb3;
+      --data-3: #74c69d;
+      --data-4: #8aa9d6;
+      --data-context: #7c6780;
+
+      /* Luxury Eyeshadow & Cosmetic Swatch Tokens */
+      --swatch-plum: #8b3a7d;
+      --swatch-orchid: #c85ca8;
+      --swatch-crimson: #c43e54;
+      --swatch-rose: #e2849e;
+      --swatch-copper: #cf7248;
+      --swatch-amber: #e2a23b;
+      --swatch-emerald: #3a9d78;
+      --swatch-teal: #3894a3;
+      --swatch-sapphire: #4869b8;
+      --swatch-champagne: #e8cf96;
+      --swatch-pearl: #f2e4ea;
+      --swatch-bronze: #99653c;
+      --swatch-espresso: #3b232e;
+      --swatch-mauve: #9c6282;
+
+      /* Fonts */
+      --font-headline: 'Josefin Sans', sans-serif;
+      --font-body: 'Lora', serif;
+      --font-label: 'Josefin Sans', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+
+      /* Shape (Deco square geometry, circular pans only for eyeshadow wells) */
+      --rounded: 0px;
+      --rounded-lg: 0px;
+      --rounded-full: 9999px;
+
+      /* Deco Style Effects */
+      --gold-rule: 1px solid var(--outline);
+      --bronze-rule: 1px solid var(--outline-variant);
+      --gold-frame-inset: 6px;
+      --pinstripe: repeating-linear-gradient(90deg, rgba(212, 175, 90, 0.045) 0 1px, transparent 1px 28px);
+      --flank-rule-width: 36px;
+
+      /* 3. Shared Foundation Tokens */
+      --positive: #74c69d;
+      --warning: #e9b85b;
+      --focus: #e6c778;
+
+      /* Dashboard / Explorer Type Scale */
+      --display-size: clamp(1.75rem, 1.35rem + 1.5vw, 2.5rem);
+      --headline-size: clamp(1.25rem, 1.08rem + 0.55vw, 1.625rem);
+      --subhead-size: clamp(1.0625rem, 1rem + 0.25vw, 1.25rem);
+      --body-size: clamp(0.9375rem, 0.9rem + 0.15vw, 1rem);
+      --label-size: 0.75rem;
+
+      /* Spacing Scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 240ms;
+      --dur-long: 480ms;
+    }
+
+    /* Base Reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      background-image: var(--pinstripe);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+    button, input, select, textarea { font-family: inherit; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Page Shell */
+    .page-grid {
+      display: grid;
+      gap: var(--space-lg);
+      padding: var(--space-lg);
+      max-width: 1240px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Deco Typography & Rules */
+    .deco-title {
+      font-family: var(--font-headline);
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      line-height: 1.2;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .deco-title b, .deco-title strong {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .flanked {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+    }
+    .flanked::before, .flanked::after {
+      content: "";
+      display: inline-block;
+      width: var(--flank-rule-width);
+      height: 1px;
+      background: var(--outline);
+      flex-shrink: 0;
+    }
+
+    .label-voice {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--primary);
+    }
+
+    .mono-voice {
+      font-family: var(--font-mono);
+      font-size: var(--label-size);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.04em;
+    }
+
+    .deco-frame {
+      border: var(--gold-rule);
+      outline: var(--gold-rule);
+      outline-offset: calc(-1 * var(--gold-frame-inset));
+      padding: var(--space-lg);
+      background-color: var(--surface-container-low);
+    }
+
+    .section-head {
+      border-bottom: var(--gold-rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-lg);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+
+    .section-title {
+      font-family: var(--font-headline);
+      font-weight: 400;
+      font-size: var(--headline-size);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    .lede {
+      font-family: var(--font-body);
+      font-style: italic;
+      color: var(--on-surface-variant);
+      max-width: 64ch;
+      margin: 0;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: 0 var(--space-lg);
+      border: var(--gold-rule);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      cursor: pointer;
+      transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+      text-decoration: none;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--tertiary);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--primary);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      background-color: var(--surface-container-high);
+      color: var(--on-surface);
+    }
+
+    .btn-sm {
+      min-height: 36px;
+      padding: 0 var(--space-md);
+      letter-spacing: 0.14em;
+    }
+
+    .btn-danger {
+      background-color: transparent;
+      border-color: var(--error);
+      color: var(--error);
+    }
+    .btn-danger:hover:not(:disabled) {
+      background-color: var(--error);
+      color: var(--on-error);
+    }
+
+    /* Tags / Chips */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-xs) var(--space-sm);
+      border: var(--bronze-rule);
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--tertiary);
+      background-color: var(--surface-container-low);
+    }
+
+    .tag-positive {
+      border-color: var(--positive);
+      color: var(--positive);
+    }
+    .tag-error {
+      border-color: var(--error);
+      color: var(--error);
+    }
+    .tag-rose {
+      border-color: var(--secondary);
+      color: var(--secondary);
+    }
+
+    /* ============================================================
+       ANIMATED LUXURY COSMETIC UNBOXING ENTRANCE
+       ============================================================ */
+    .intro-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background-color: var(--background);
+      background-image: var(--pinstripe);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-lg);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .intro-overlay.is-hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(1.02);
+    }
+
+    .compact-stage {
+      width: 100%;
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-lg);
+    }
+
+    .compact-box {
+      width: 100%;
+      background-color: var(--surface-container);
+      border: var(--gold-rule);
+      outline: var(--gold-rule);
+      outline-offset: calc(-1 * var(--gold-frame-inset));
+      padding: var(--space-xl);
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--dur-long) var(--ease-out);
+    }
+
+    .compact-lid {
+      position: relative;
+      z-index: 2;
+      background-color: var(--surface-container-low);
+      border: var(--gold-rule);
+      padding: var(--space-xl) var(--space-lg);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-md);
+      transform-origin: top center;
+      transition: transform 680ms var(--ease-out), opacity 480ms var(--ease-out);
+    }
+
+    .compact-box.is-unboxed .compact-lid {
+      transform: perspective(900px) rotateX(68deg) translateY(-28px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .palette-interior {
+      margin-top: var(--space-lg);
+      padding-top: var(--space-lg);
+      border-top: var(--gold-rule);
+      opacity: 0.25;
+      transform: translateY(14px);
+      transition: opacity 520ms var(--ease-out) 140ms, transform 520ms var(--ease-out) 140ms;
+    }
+    .compact-box.is-unboxed .palette-interior {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .unbox-pans {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: var(--space-md);
+      margin: var(--space-lg) 0;
+    }
+    .unbox-pan-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-xs);
+      text-align: center;
+    }
+    .eyeshadow-well {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--rounded-full);
+      border: 2px solid var(--outline);
+      transition: transform var(--dur-short) var(--ease-out);
+      cursor: pointer;
+    }
+    .eyeshadow-well:hover {
+      transform: scale(1.1);
+    }
+    .pan-plum { background-color: var(--swatch-plum); }
+    .pan-orchid { background-color: var(--swatch-orchid); }
+    .pan-crimson { background-color: var(--swatch-crimson); }
+    .pan-amber { background-color: var(--swatch-amber); }
+    .pan-emerald { background-color: var(--swatch-emerald); }
+    .pan-sapphire { background-color: var(--swatch-sapphire); }
+
+    .intro-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-md);
+    }
+
+    /* ============================================================
+       HEADER & MASTHEAD
+       ============================================================ */
+    .masthead {
+      border-bottom: var(--gold-rule);
+      padding: var(--space-lg) var(--space-lg) var(--space-md);
+      background-color: var(--surface-container-low);
+      text-align: center;
+    }
+    .masthead-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-md);
+    }
+    .brand-lockup {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .brand-emblem {
+      width: 64px;
+      height: 64px;
+      display: block;
+    }
+    .masthead-title {
+      font-size: var(--display-size);
+    }
+    .masthead-meta-bar {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding-top: var(--space-md);
+      border-top: var(--bronze-rule);
+    }
+
+    /* Navigation Tabs */
+    .main-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-sm);
+    }
+    .nav-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--on-surface-variant);
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      min-height: 44px;
+      padding: 0 var(--space-md);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      transition: color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+    .nav-btn:hover {
+      color: var(--primary);
+      border-color: var(--outline-variant);
+    }
+    .nav-btn.is-active {
+      color: var(--on-primary);
+      background-color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .session-status-wrap {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* View Panels with Smooth Entrance */
+    .app-view {
+      display: none;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    .app-view.is-visible {
+      display: block;
+      animation: viewReveal var(--dur-long) var(--ease-out) forwards;
+    }
+    @keyframes viewReveal {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================================
+       KPI FIGURES ROW & GRIDS
+       ============================================================ */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+    .kpi-card {
+      border: var(--gold-rule);
+      outline: var(--gold-rule);
+      outline-offset: calc(-1 * var(--gold-frame-inset));
+      background-color: var(--surface-container-low);
+      padding: var(--space-lg);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .kpi-value {
+      font-family: var(--font-headline);
+      font-weight: 300;
+      font-size: clamp(2rem, 1.5rem + 1.5vw, 2.75rem);
+      color: var(--on-surface);
+      font-variant-numeric: tabular-nums;
+      line-height: 1.1;
+    }
+    .kpi-note {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+
+    /* Overview Feature Panels */
+    .split-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+    }
+    .panel {
+      background-color: var(--surface-container-low);
+      border: var(--gold-rule);
+      padding: var(--space-lg);
+    }
+    .panel-filled {
+      background-color: var(--surface-container);
+      border: var(--gold-rule);
+      padding: var(--space-lg);
+    }
+
+    /* Department Interactive Swatch Bar */
+    .swatch-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      align-items: center;
+    }
+    .swatch-chip-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      background-color: var(--surface-container);
+      border: var(--bronze-rule);
+      padding: var(--space-xs) var(--space-md) var(--space-xs) var(--space-xs);
+      min-height: 44px;
+      color: var(--on-surface);
+      cursor: pointer;
+      transition: border-color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
+    }
+    .swatch-chip-btn:hover, .swatch-chip-btn.is-selected {
+      border-color: var(--outline);
+      background-color: var(--surface-container-high);
+    }
+    .swatch-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--rounded-full);
+      border: 1px solid var(--outline);
+      flex-shrink: 0;
+    }
+
+    /* ============================================================
+       ARTIST DIRECTORY CARDS & CONTAINER QUERIES
+       ============================================================ */
+    .artist-card-wrap {
+      container-type: inline-size;
+    }
+    .artist-card {
+      background-color: var(--surface-container-low);
+      border: var(--gold-rule);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+      transition: background-color var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+      height: 100%;
+    }
+    .artist-card:hover {
+      background-color: var(--surface-container);
+      transform: translateY(-2px);
+    }
+    @container (min-width: 440px) {
+      .artist-card {
+        grid-template-columns: 140px minmax(0, 1fr);
+        align-items: start;
+      }
+    }
+
+    .artist-portrait-frame {
+      border: var(--gold-rule);
+      outline: var(--bronze-rule);
+      outline-offset: -4px;
+      background-color: var(--surface-container);
+      padding: var(--space-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+    }
+    .artist-portrait-frame svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .artist-mini-swatches {
+      display: flex;
+      gap: var(--space-xs);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .mini-pan {
+      width: 20px;
+      height: 20px;
+      border-radius: var(--rounded-full);
+      border: 1px solid var(--outline);
+    }
+
+    /* ============================================================
+       ANIMATED PORTFOLIO REVEAL CURTAIN & INDIVIDUAL PORTFOLIO
+       ============================================================ */
+    .portfolio-curtain {
+      background-color: var(--surface-container);
+      border: var(--gold-rule);
+      outline: var(--gold-rule);
+      outline-offset: calc(-1 * var(--gold-frame-inset));
+      padding: var(--space-2xl) var(--space-lg);
+      text-align: center;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-md);
+    }
+    .portfolio-curtain.is-active {
+      display: flex;
+      animation: curtainReveal 420ms var(--ease-out) forwards;
+    }
+    @keyframes curtainReveal {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .portfolio-detail {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xl);
+      animation: viewReveal 420ms var(--ease-out) forwards;
+    }
+
+    .portfolio-hero {
+      display: grid;
+      grid-template-columns: 240px minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    /* Career Timeline */
+    .timeline-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+      border-left: var(--gold-rule);
+      padding-left: var(--space-lg);
+      margin-left: var(--space-sm);
+    }
+    .timeline-item {
+      position: relative;
+      padding-bottom: var(--space-sm);
+      border-bottom: var(--bronze-rule);
+    }
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: calc(-1 * var(--space-lg) - 6px);
+      top: 6px;
+      width: 11px;
+      height: 11px;
+      background-color: var(--primary);
+      border: 2px solid var(--background);
+    }
+
+    /* Interactive Signature Eyeshadow Compact */
+    .signature-compact {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: stretch;
+    }
+    .pan-rack {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+      gap: var(--space-md);
+    }
+    .pan-button {
+      background-color: var(--surface-container);
+      border: var(--bronze-rule);
+      padding: var(--space-md) var(--space-sm);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-sm);
+      color: var(--on-surface);
+      cursor: pointer;
+      transition: border-color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
+    }
+    .pan-button:hover, .pan-button.is-active {
+      border-color: var(--outline);
+      background-color: var(--surface-container-high);
+    }
+    .pan-well-lg {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--rounded-full);
+      border: 2px solid var(--outline);
+    }
+
+    /* ============================================================
+       ARCHIVE & WORK LOOK PLATES
+       ============================================================ */
+    .filter-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+      gap: var(--space-md);
+      align-items: end;
+      background-color: var(--surface-container-low);
+      border: var(--gold-rule);
+      padding: var(--space-lg);
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--primary);
+    }
+    .field-control {
+      min-height: 44px;
+      background-color: var(--surface-container);
+      border: none;
+      border-bottom: var(--gold-rule);
+      color: var(--on-surface);
+      padding: var(--space-sm) var(--space-md);
+      font-size: var(--body-size);
+      width: 100%;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    select.field-control {
+      padding-right: var(--space-xl);
+    }
+    .field-control:focus {
+      background-color: var(--surface-container-high);
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .look-plate-card {
+      background-color: var(--surface-container-low);
+      border: var(--gold-rule);
+      display: flex;
+      flex-direction: column;
+      transition: transform var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
+    }
+    .look-plate-card:hover {
+      background-color: var(--surface-container);
+      transform: translateY(-2px);
+    }
+    .look-plate-visual {
+      border-bottom: var(--bronze-rule);
+      background-color: var(--surface-container);
+      padding: var(--space-md);
+      aspect-ratio: 16 / 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .look-plate-visual svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .look-plate-body {
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      flex: 1;
+    }
+
+    /* ============================================================
+       ROSTER TABLES & SECURE PORTAL
+       ============================================================ */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: var(--gold-rule);
+      background-color: var(--surface-container-low);
+    }
+    table.roster-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      min-width: 680px;
+    }
+    .roster-table thead th {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--primary);
+      padding: var(--space-md);
+      border-bottom: var(--gold-rule);
+      background-color: var(--surface-container);
+      white-space: nowrap;
+    }
+    .roster-table tbody td {
+      padding: var(--space-md);
+      border-bottom: var(--bronze-rule);
+      vertical-align: middle;
+      color: var(--on-surface);
+    }
+    .roster-table tbody tr:hover {
+      background-color: var(--surface-container);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+      gap: var(--space-md);
+      align-items: end;
+    }
+
+    .status-banner {
+      padding: var(--space-md) var(--space-lg);
+      border: var(--gold-rule);
+      background-color: var(--surface-container);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+    .status-banner.is-error {
+      border-color: var(--error);
+    }
+    .status-banner.is-positive {
+      border-color: var(--positive);
+    }
+
+    .footer-bar {
+      border-top: var(--gold-rule);
+      background-color: var(--surface-container-low);
+      padding: var(--space-xl) var(--space-lg);
+      text-align: center;
+      margin-top: var(--space-xl);
+    }
+    .footer-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    /* Utility & Spacing Helpers */
+    .stack-sm { display: flex; flex-direction: column; gap: var(--space-sm); }
+    .stack-md { display: flex; flex-direction: column; gap: var(--space-md); }
+    .stack-lg { display: flex; flex-direction: column; gap: var(--space-lg); }
+    .row-wrap { display: flex; flex-wrap: wrap; gap: var(--space-sm); align-items: center; }
+    .text-muted { color: var(--on-surface-variant); }
+    .text-gold { color: var(--primary); }
+    .text-rose { color: var(--secondary); }
+    .text-positive { color: var(--positive); }
+    .text-error { color: var(--error); }
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 860px) {
+      .split-grid,
+      .portfolio-hero,
+      .signature-compact {
+        grid-template-columns: 1fr;
+      }
+      .unbox-pans {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-md);
+      }
+      .masthead {
+        padding: var(--space-md);
+      }
+      .deco-frame {
+        padding: var(--space-md);
+      }
+      .compact-box {
+        padding: var(--space-md);
+      }
+      .nav-btn {
+        width: 100%;
+        justify-content: center;
+      }
+      .masthead-meta-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       ANIMATED ENTRANCE EXPERIENCE: LUXURY COSMETIC UNBOXING
+       ============================================================ -->
+  <div id="intro-overlay" class="intro-overlay" role="dialog" aria-modal="true" aria-labelledby="intro-title">
+    <div class="compact-stage">
+      <div id="compact-box" class="compact-box">
+        <!-- Closed / Hinged Luxury Compact Lid -->
+        <div id="compact-lid" class="compact-lid">
+          <svg class="brand-emblem" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="4" y="4" width="72" height="72" stroke="var(--outline)" stroke-width="1.5"/>
+            <rect x="10" y="10" width="60" height="60" stroke="var(--outline-variant)" stroke-width="1"/>
+            <path d="M22 28C22 22 58 22 58 28V52C58 58 22 58 22 52V28Z" fill="var(--surface-container)" stroke="var(--outline)" stroke-width="1.5"/>
+            <text x="40" y="44" text-anchor="middle" fill="var(--primary)" font-family="Josefin Sans, sans-serif" font-weight="600" font-size="14" letter-spacing="2">DTV</text>
+            <line x1="26" y1="50" x2="54" y2="50" stroke="var(--secondary)" stroke-width="1.5"/>
+          </svg>
+          <span class="flanked">TV Derana Makeup Department</span>
+          <h1 id="intro-title" class="deco-title" style="font-size: var(--display-size);">
+            DTV <b>Makeup Roster</b>
+          </h1>
+          <p class="lede" style="text-align: center;">
+            Luxury Cosmetic Atelier, Artist Portfolios &amp; Access-Controlled Roster System
+          </p>
+          <div class="intro-actions">
+            <button type="button" class="btn btn-primary" onclick="unboxPalette()">
+              <i data-lucide="sparkles" aria-hidden="true"></i>
+              Open Luxury Compact
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="dismissIntro()">
+              Skip Intro
+            </button>
+          </div>
+        </div>
+
+        <!-- Revealed Eyeshadow Palette Interior -->
+        <div class="palette-interior" aria-live="polite">
+          <div style="text-align: center;" class="stack-sm">
+            <span class="label-voice">Six Department Signature Shades</span>
+            <p class="text-muted" style="margin: 0; font-size: 0.9rem;">
+              Select any pigment pan to preview the artist’s signature shade, or step directly into the atelier.
+            </p>
+          </div>
+
+          <div class="unbox-pans">
+            <div class="unbox-pan-item">
+              <button type="button" class="eyeshadow-well pan-plum" aria-label="Royal Plum Velvet — Udayanga Kamaljith" onclick="previewIntroShade('Udayanga Kamaljith', 'Head of Department', 'Royal Plum Velvet · Satin Finish', 'var(--swatch-plum)')"></button>
+              <span class="label-voice" style="font-size: 0.68rem;">Udayanga</span>
+            </div>
+            <div class="unbox-pan-item">
+              <button type="button" class="eyeshadow-well pan-crimson" aria-label="Dramatic Crimson — Amila Dilruksha" onclick="previewIntroShade('Amila Dilruksha', 'Senior Character Artist', 'Dramatic Crimson · Matte Velvet', 'var(--swatch-crimson)')"></button>
+              <span class="label-voice" style="font-size: 0.68rem;">Amila</span>
+            </div>
+            <div class="unbox-pan-item">
+              <button type="button" class="eyeshadow-well pan-sapphire" aria-label="Midnight Sapphire — Buddika Nuwan" onclick="previewIntroShade('Buddika Nuwan', 'SFX & Broadcast Artist', 'Midnight Sapphire · Metallic', 'var(--swatch-sapphire)')"></button>
+              <span class="label-voice" style="font-size: 0.68rem;">Buddika</span>
+            </div>
+            <div class="unbox-pan-item">
+              <button type="button" class="eyeshadow-well pan-orchid" aria-label="Studio Orchid — Zhara De Silva" onclick="previewIntroShade('Zhara De Silva', 'Anchor & Beauty Artist', 'Studio Orchid · Luminous Shimmer', 'var(--swatch-orchid)')"></button>
+              <span class="label-voice" style="font-size: 0.68rem;">Zhara</span>
+            </div>
+            <div class="unbox-pan-item">
+              <button type="button" class="eyeshadow-well pan-amber" aria-label="Burnished Amber — Dakshina Gammanpila" onclick="previewIntroShade('Dakshina Gammanpila', 'Event & Production Artist', 'Burnished Amber · Foil Gold', 'var(--swatch-amber)')"></button>
+              <span class="label-voice" style="font-size: 0.68rem;">Dakshina</span>
+            </div>
+            <div class="unbox-pan-item">
+              <button type="button" class="eyeshadow-well pan-emerald" aria-label="Ceylon Emerald — Yashodara Niyomali" onclick="previewIntroShade('Yashodara Niyomali', 'Continuity & Beauty Artist', 'Ceylon Emerald · Silk Sheen', 'var(--swatch-emerald)')"></button>
+              <span class="label-voice" style="font-size: 0.68rem;">Yashodara</span>
+            </div>
+          </div>
+
+          <div id="intro-shade-readout" class="status-banner" style="justify-content: center; text-align: center;">
+            <span class="mono-voice text-gold">Unboxed Palette Ready — Six Verified TV Derana Artists</span>
+          </div>
+
+          <div class="intro-actions" style="margin-top: var(--space-lg);">
+            <button type="button" class="btn btn-primary" onclick="dismissIntro()">
+              Enter Atelier &amp; Roster
+              <i data-lucide="arrow-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MASTHEAD & PRIMARY NAVIGATION
+       ============================================================ -->
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="brand-lockup">
+        <svg class="brand-emblem" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="TV Derana Makeup Department Emblem">
+          <rect x="4" y="4" width="72" height="72" stroke="var(--outline)" stroke-width="1.5"/>
+          <rect x="10" y="10" width="60" height="60" stroke="var(--outline-variant)" stroke-width="1"/>
+          <path d="M18 26C18 21 62 21 62 26V48C62 53 18 53 18 48V26Z" fill="var(--surface-container)" stroke="var(--outline)" stroke-width="1.5"/>
+          <text x="40" y="40" text-anchor="middle" fill="var(--primary)" font-family="Josefin Sans, sans-serif" font-weight="600" font-size="13" letter-spacing="2">DTV</text>
+          <text x="40" y="50" text-anchor="middle" fill="var(--secondary)" font-family="Josefin Sans, sans-serif" font-weight="600" font-size="6.5" letter-spacing="1.5">DERANA</text>
+          <line x1="22" y1="62" x2="58" y2="62" stroke="var(--outline)" stroke-width="1"/>
+        </svg>
+        <span class="flanked">TV Derana Makeup Department</span>
+        <h1 class="deco-title masthead-title">
+          DTV <b>Makeup Roster</b>
+        </h1>
+        <p class="lede" style="text-align: center;">
+          Digital Atelier, Artist Portfolios, Production Archive &amp; Role-Restricted Duty Scheduling
+        </p>
+      </div>
+
+      <div class="masthead-meta-bar">
+        <nav class="main-nav" aria-label="Primary application navigation">
+          <button type="button" id="nav-overview" class="nav-btn is-active" onclick="switchView('overview')">
+            <i data-lucide="layout-dashboard" aria-hidden="true"></i>
+            Atelier Overview
+          </button>
+          <button type="button" id="nav-artists" class="nav-btn" onclick="switchView('artists')">
+            <i data-lucide="users" aria-hidden="true"></i>
+            Artist Portfolios (6)
+          </button>
+          <button type="button" id="nav-archive" class="nav-btn" onclick="switchView('archive')">
+            <i data-lucide="palette" aria-hidden="true"></i>
+            Work Archive
+          </button>
+          <button type="button" id="nav-roster" class="nav-btn" onclick="switchView('roster')">
+            <i data-lucide="shield-check" aria-hidden="true"></i>
+            Secure Roster Portal
+          </button>
+        </nav>
+
+        <div class="session-status-wrap">
+          <span id="header-session-badge" class="tag">Public Showcase Mode</span>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="replayIntro()">
+            <i data-lucide="sparkles" aria-hidden="true"></i>
+            Replay Unboxing
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN WORKSPACE CONTAINER
+       ============================================================ -->
+  <main class="page-grid">
+
+    <!-- ==========================================================
+         VIEW 1: ATELIER OVERVIEW
+         ========================================================== -->
+    <section id="view-overview" class="app-view is-visible" aria-labelledby="overview-heading">
+      <div class="stack-lg">
+        <div class="section-head">
+          <div>
+            <span class="label-voice">Department Showcase &amp; Operational Summary</span>
+            <h2 id="overview-heading" class="section-title">TV Derana Makeup Atelier</h2>
+          </div>
+          <div class="row-wrap">
+            <button type="button" class="btn btn-primary btn-sm" onclick="switchView('roster')">
+              <i data-lucide="lock" aria-hidden="true"></i>
+              Staff Roster Login
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="switchView('artists')">
+              Explore All 6 Artists
+            </button>
+          </div>
+        </div>
+
+        <!-- KPI Figures Strip -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <span class="label-voice">Makeup Department Team</span>
+            <div class="kpi-value">06</div>
+            <span class="kpi-note">Led by Udayanga Kamaljith</span>
+          </div>
+          <div class="kpi-card">
+            <span class="label-voice">Weekly Published Shifts</span>
+            <div id="kpi-published-shifts" class="kpi-value">08</div>
+            <span class="kpi-note">Sample broadcast duty schedule</span>
+          </div>
+          <div class="kpi-card">
+            <span class="label-voice">Archived Production Looks</span>
+            <div id="kpi-archive-looks" class="kpi-value">12</div>
+            <span class="kpi-note">Across 4 TV Derana categories</span>
+          </div>
+          <div class="kpi-card">
+            <span class="label-voice">Unauthorised Link Blocks</span>
+            <div id="kpi-blocked-attempts" class="kpi-value">03</div>
+            <span class="kpi-note">Role-based access protection active</span>
+          </div>
+        </div>
+
+        <!-- Department Split: Security Context + Live Cosmetic Swatch Explorer -->
+        <div class="split-grid">
+          <div class="deco-frame stack-md" style="text-align: left;">
+            <span class="label-voice">Project Architecture &amp; Security Separation</span>
+            <h3 class="deco-title" style="font-size: var(--subhead-size);">
+              Public Craftsmanship, <b>Private Operations</b>
+            </h3>
+            <p style="margin: 0;">
+              Built for the TV Derana Makeup Department, this application replaces vulnerable, publicly shared roster links with an authenticated internal scheduling workspace—while elevating the creative work, signature palettes, and professional journeys of all six makeup artists into bespoke digital portfolios.
+            </p>
+            <div class="row-wrap">
+              <span class="tag tag-positive">Role-Based Access Control</span>
+              <span class="tag">Department Head Admin</span>
+              <span class="tag tag-rose">Sample Development Data</span>
+            </div>
+            <div class="row-wrap" style="padding-top: var(--space-sm); border-top: var(--bronze-rule);">
+              <button type="button" class="btn btn-primary btn-sm" onclick="switchView('roster')">
+                Open Secure Roster Portal
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="switchView('archive')">
+                Browse Work Archive
+              </button>
+            </div>
+          </div>
+
+          <div class="panel-filled stack-md">
+            <span class="label-voice">Broadcast Pigment &amp; Swatch Studio</span>
+            <h3 class="deco-title" style="font-size: var(--subhead-size);">
+              Department <b>Colour Language</b>
+            </h3>
+            <p class="text-muted" style="margin: 0; font-size: 0.9rem;">
+              Select a cosmetic pigment pan to inspect its studio lighting calibration and primary production use.
+            </p>
+            <div id="overview-swatch-bar" class="swatch-strip"></div>
+            <div id="overview-swatch-detail" class="status-banner" style="margin-top: auto;">
+              <div class="stack-sm" style="gap: 2px;">
+                <span class="label-voice">Royal Plum Velvet · PLM-01</span>
+                <span class="text-muted" style="font-size: 0.875rem;">
+                  High-definition matte plum calibrated for 4K studio LED rigs and evening anchor contouring.
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Featured Artists Quick Launch -->
+        <div class="stack-md">
+          <div class="section-head">
+            <div>
+              <span class="label-voice">Department Roster</span>
+              <h3 class="section-title">Six Makeup Department Artists</h3>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="switchView('artists')">
+              View Full Directory
+            </button>
+          </div>
+          <div id="overview-artists-grid" class="card-grid"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         VIEW 2: ARTIST PORTFOLIOS (DIRECTORY + INDIVIDUAL PORTFOLIO)
+         ========================================================== -->
+    <section id="view-artists" class="app-view" aria-labelledby="artists-heading">
+      <div class="stack-lg">
+        <!-- Directory View -->
+        <div id="artists-directory-panel" class="stack-lg">
+          <div class="section-head">
+            <div>
+              <span class="label-voice">Individual Creative Portfolios</span>
+              <h2 id="artists-heading" class="section-title">TV Derana Makeup Artists</h2>
+            </div>
+            <span class="tag tag-rose">Sample Career &amp; Gallery Entries</span>
+          </div>
+
+          <p class="lede">
+            Select any artist below to trigger their signature portfolio reveal—featuring their career journey timeline at TV Derana, categorised production gallery, interactive eyeshadow palette, and professional recognitions.
+          </p>
+
+          <div id="artists-directory-grid" class="card-grid"></div>
+        </div>
+
+        <!-- Animated Portfolio Reveal Transition Curtain -->
+        <div id="portfolio-curtain" class="portfolio-curtain" aria-live="polite">
+          <span class="flanked">Opening Artist Atelier</span>
+          <div id="curtain-portrait-holder" style="width: 120px; height: 150px;"></div>
+          <h3 id="curtain-artist-name" class="deco-title" style="font-size: var(--headline-size);"></h3>
+          <span id="curtain-artist-role" class="label-voice"></span>
+        </div>
+
+        <!-- Individual Portfolio Detail View -->
+        <div id="portfolio-detail-panel" class="portfolio-detail" style="display: none;"></div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         VIEW 3: FILTERABLE MAKEUP WORK ARCHIVE
+         ========================================================== -->
+    <section id="view-archive" class="app-view" aria-labelledby="archive-heading">
+      <div class="stack-lg">
+        <div class="section-head">
+          <div>
+            <span class="label-voice">Curated Production Catalogue</span>
+            <h2 id="archive-heading" class="section-title">Makeup Work Archive</h2>
+          </div>
+          <span id="archive-count-tag" class="tag">12 Looks Displayed</span>
+        </div>
+
+        <!-- Multi-Facet Filter Bar -->
+        <div class="filter-bar">
+          <div class="field-group">
+            <label for="archive-search" class="field-label">Search Looks or Productions</label>
+            <input id="archive-search" type="search" class="field-control" placeholder="e.g. Prime News, Teledrama, Gala…" oninput="applyArchiveFilters()">
+          </div>
+          <div class="field-group">
+            <label for="archive-production-filter" class="field-label">Production Category</label>
+            <select id="archive-production-filter" class="field-control" onchange="applyArchiveFilters()">
+              <option value="all">All Productions</option>
+              <option value="News &amp; Current Affairs">News &amp; Current Affairs</option>
+              <option value="Teledrama &amp; Character">Teledrama &amp; Character</option>
+              <option value="Reality &amp; Entertainment">Reality &amp; Entertainment</option>
+              <option value="Special Broadcasts &amp; Galas">Special Broadcasts &amp; Galas</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="archive-style-filter" class="field-label">Makeup Look Style</label>
+            <select id="archive-style-filter" class="field-control" onchange="applyArchiveFilters()">
+              <option value="all">All Look Styles</option>
+              <option value="HD Studio Matte">HD Studio Matte</option>
+              <option value="Editorial Glow">Editorial Glow</option>
+              <option value="Character &amp; Prosthetic">Character &amp; Prosthetic</option>
+              <option value="Traditional &amp; Ceremonial">Traditional &amp; Ceremonial</option>
+              <option value="Avant-Garde Colour">Avant-Garde Colour</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="archive-artist-filter" class="field-label">Makeup Artist</label>
+            <select id="archive-artist-filter" class="field-control" onchange="applyArchiveFilters()">
+              <option value="all">All 6 Artists</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <button type="button" class="btn btn-secondary" onclick="resetArchiveFilters()">
+              Reset Filters
+            </button>
+          </div>
+        </div>
+
+        <!-- Inline Look Breakdown Inspector -->
+        <div id="archive-inspector" class="deco-frame" style="text-align: left; display: none;"></div>
+
+        <!-- Archive Card Grid -->
+        <div id="archive-grid" class="card-grid"></div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         VIEW 4: SECURE ROSTER MANAGEMENT SYSTEM
+         ========================================================== -->
+    <section id="view-roster" class="app-view" aria-labelledby="roster-heading">
+      <div class="stack-lg">
+        <div class="section-head">
+          <div>
+            <span class="label-voice">Confidential Departmental Scheduling</span>
+            <h2 id="roster-heading" class="section-title">Secure Roster Management Portal</h2>
+          </div>
+          <div id="roster-header-actions" class="row-wrap"></div>
+        </div>
+
+        <!-- Authentication Gate (Logged Out State) -->
+        <div id="roster-login-gate" class="split-grid">
+          <div class="deco-frame stack-md" style="text-align: left;">
+            <div class="row-wrap" style="justify-content: space-between;">
+              <span class="label-voice">Authorised Staff Sign-In</span>
+              <span class="tag tag-error">Public Link Access Blocked</span>
+            </div>
+            <h3 class="deco-title" style="font-size: var(--subhead-size);">
+              Internal <b>Authentication</b>
+            </h3>
+            <p class="text-muted" style="margin: 0; font-size: 0.92rem;">
+              Daily and weekly working schedules are restricted to authenticated TV Derana Makeup Department personnel. Unauthorised registration is disabled; accounts are provisioned solely by the Department Head.
+            </p>
+
+            <form onsubmit="handleManualLogin(event)" class="stack-md">
+              <div class="field-group">
+                <label for="login-staff-id" class="field-label">Staff ID</label>
+                <input id="login-staff-id" type="text" class="field-control" value="DTV-HD-01" autocomplete="off">
+              </div>
+              <div class="field-group">
+                <label for="login-passcode" class="field-label">Department Passcode</label>
+                <input id="login-passcode" type="password" class="field-control" value="DERANA-2026" autocomplete="off">
+              </div>
+              <div id="login-feedback" class="text-muted" style="font-size: 0.875rem;" aria-live="polite"></div>
+              <div class="row-wrap">
+                <button type="submit" class="btn btn-primary">
+                  <i data-lucide="key-round" aria-hidden="true"></i>
+                  Authenticate &amp; Enter
+                </button>
+                <button type="button" class="btn btn-danger btn-sm" onclick="simulateUnauthorisedAttempt()">
+                  Test Blocked Access
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="panel-filled stack-md">
+            <span class="label-voice">Development Role Preview</span>
+            <h3 class="deco-title" style="font-size: var(--subhead-size);">
+              Instant <b>Role Access</b>
+            </h3>
+            <p class="text-muted" style="margin: 0; font-size: 0.9rem;">
+              Select a verified role below to inspect the separated Department Head Admin Console or the Read-Only Member Duty View.
+            </p>
+
+            <div class="stack-sm">
+              <button type="button" class="btn btn-primary" style="justify-content: flex-start;" onclick="quickSignIn('DTV-HD-01')">
+                <i data-lucide="shield" aria-hidden="true"></i>
+                Sign in as Admin: Udayanga Kamaljith (Head of Dept)
+              </button>
+              <button type="button" class="btn btn-secondary" style="justify-content: flex-start;" onclick="quickSignIn('DTV-MA-02')">
+                <i data-lucide="user-check" aria-hidden="true"></i>
+                Sign in as Member: Amila Dilruksha
+              </button>
+              <button type="button" class="btn btn-secondary" style="justify-content: flex-start;" onclick="quickSignIn('DTV-MA-04')">
+                <i data-lucide="user-check" aria-hidden="true"></i>
+                Sign in as Member: Zhara De Silva
+              </button>
+            </div>
+
+            <div class="panel stack-sm" style="margin-top: auto;">
+              <span class="label-voice">Demo Credential Directory</span>
+              <span class="mono-voice text-muted">Admin ID: DTV-HD-01 · Member IDs: DTV-MA-02 to DTV-MA-06</span>
+              <span class="mono-voice text-muted">Demo Passcode: DERANA-2026</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Dashboard (Department Head: Udayanga Kamaljith) -->
+        <div id="admin-dashboard" class="stack-lg" style="display: none;"></div>
+
+        <!-- Member Dashboard (Authorized Artists Read-Only) -->
+        <div id="member-dashboard" class="stack-lg" style="display: none;"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer-bar">
+    <div class="footer-inner">
+      <svg class="brand-emblem" style="width: 48px; height: 48px;" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="4" y="4" width="72" height="72" stroke="var(--outline)" stroke-width="1.5"/>
+        <path d="M18 28C18 23 62 23 62 28V48C62 53 18 53 18 48V28Z" fill="var(--surface-container)" stroke="var(--outline)" stroke-width="1.5"/>
+        <text x="40" y="42" text-anchor="middle" fill="var(--primary)" font-family="Josefin Sans, sans-serif" font-weight="600" font-size="13" letter-spacing="2">DTV</text>
+      </svg>
+      <span class="flanked">DTV Makeup Roster • TV Derana Makeup Department</span>
+      <p class="text-muted" style="max-width: 68ch; margin: 0; font-size: 0.875rem;">
+        Honours-Level Advanced Technologies in New Media Prototype. Team names and department head designation reflect the project proposal; career timelines, production archive looks, and weekly duty rosters are clearly labelled sample development records.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Required Gemini Notebook State Persistence Shim -->
+  <api-shim></api-shim>
+
+  <script>
+    /* ============================================================
+       VERIFIED TEAM & SAMPLE DEVELOPMENT DATASETS
+       ============================================================ */
+    const DEPARTMENT_SWATCHES = [
+      {
+        id: `sw-plum`,
+        name: `Royal Plum Velvet`,
+        code: `PLM-01`,
+        finish: `Matte Velvet`,
+        colorVar: `var(--swatch-plum)`,
+        note: `High-definition matte plum calibrated for 4K studio LED rigs and evening anchor contouring.`
+      },
+      {
+        id: `sw-champagne`,
+        name: `Derana Champagne Gilt`,
+        code: `GLD-02`,
+        finish: `Satin Luminous`,
+        colorVar: `var(--swatch-champagne)`,
+        note: `Soft-focus inner-corner and brow-bone illuminator without harsh broadcast glare.`
+      },
+      {
+        id: `sw-orchid`,
+        name: `Studio Orchid`,
+        code: `ORC-03`,
+        finish: `Pearl Shimmer`,
+        colorVar: `var(--swatch-orchid)`,
+        note: `Vibrant editorial magenta-plum favoured for weekend entertainment and music gala broadcasts.`
+      },
+      {
+        id: `sw-crimson`,
+        name: `Stage Crimson`,
+        code: `CRM-04`,
+        finish: `Full-Pigment Matte`,
+        colorVar: `var(--swatch-crimson)`,
+        note: `Long-wear lip and theatrical crease pigment resistant to hot studio tungsten lighting.`
+      },
+      {
+        id: `sw-amber`,
+        name: `Burnished Amber`,
+        code: `AMB-05`,
+        finish: `Metallic Foil`,
+        colorVar: `var(--swatch-amber)`,
+        note: `Warm bronze-gold wash crafted for Sri Lankan skin undertones under outdoor daylight cameras.`
+      },
+      {
+        id: `sw-emerald`,
+        name: `Ceylon Emerald`,
+        code: `EMR-06`,
+        finish: `Silk Duochrome`,
+        colorVar: `var(--swatch-emerald)`,
+        note: `Deep jewel liner tone for ceremonial specials, cultural programmes, and character work.`
+      }
+    ];
+
+    const ARTISTS = [
+      {
+        id: `udayanga`,
+        staffId: `DTV-HD-01`,
+        name: `Udayanga Kamaljith`,
+        initials: `UK`,
+        title: `Head of Department`,
+        roleBadge: `Department Head · Admin`,
+        startYear: `2016 (Sample)`,
+        primaryColor: `var(--swatch-plum)`,
+        secondaryColor: `var(--swatch-champagne)`,
+        accentColor: `var(--swatch-crimson)`,
+        bio: `Leads the TV Derana Makeup Department’s artistic direction, broadcast continuity standards, and daily duty scheduling across news, teledrama, and flagship live productions.`,
+        experience: `Oversees studio lighting calibration, team supervision, special live-broadcast transformations, and quality assurance for high-definition television cameras (sample development profile).`,
+        specialties: [`Department Direction`, `Prime News HD`, `Character Design`, `Live Galas`],
+        timeline: [
+          { year: `2016 (Sample)`, role: `Senior Broadcast Makeup Artist`, detail: `Joined TV Derana studio operations, establishing HD matte base protocols for daily news anchors.` },
+          { year: `2019 (Sample)`, role: `Lead Production Stylist`, detail: `Directed continuity and special production looks for flagship prime-time reality and teledrama series.` },
+          { year: `2023–Present (Sample)`, role: `Head of Makeup Department`, detail: `Manages all six department artists, approves weekly duty rosters, and oversees inter-studio cosmetic standards.` }
+        ],
+        palette: [
+          { name: `Director’s Plum`, code: `UK-01`, finish: `Velvet Matte`, colorVar: `var(--swatch-plum)`, note: `Deep aubergine shadow for authoritative evening news definition.` },
+          { name: `Burnished Champagne`, code: `UK-02`, finish: `Soft Satin`, colorVar: `var(--swatch-champagne)`, note: `Neutralises studio shadows under overhead LED arrays.` },
+          { name: `Broadcast Espresso`, code: `UK-03`, finish: `Matte Liner`, colorVar: `var(--swatch-espresso)`, note: `Precision lash-line grounding for close-up anchor frames.` },
+          { name: `Warm Bronze`, code: `UK-04`, finish: `Satin Sculpt`, colorVar: `var(--swatch-bronze)`, note: `Natural jawline and temple sculpting for multi-camera angles.` },
+          { name: `Gala Crimson`, code: `UK-05`, finish: `Rich Matte`, colorVar: `var(--swatch-crimson)`, note: `Statement red for awards nights and New Year live specials.` }
+        ],
+        achievements: [
+          `Sample Recognition: Directed 6-artist live makeup operations for annual TV Derana Awards Broadcasts.`,
+          `Sample Recognition: Standardised 4K HD skin-prep kit across Studio A & Studio B news desks.`
+        ]
+      },
+      {
+        id: `amila`,
+        staffId: `DTV-MA-02`,
+        name: `Amila Dilruksha`,
+        initials: `AD`,
+        title: `Senior Television & Character Artist`,
+        roleBadge: `Authorised Member`,
+        startYear: `2018 (Sample)`,
+        primaryColor: `var(--swatch-crimson)`,
+        secondaryColor: `var(--swatch-bronze)`,
+        accentColor: `var(--swatch-amber)`,
+        bio: `Specialises in dramatic teledrama character ageing, period styling, and sweat-resistant studio television finishes for multi-hour location shoots.`,
+        experience: `Eight years of sample broadcast and drama production artistry, balancing subtle naturalism on close-up lenses with bold theatrical character builds.`,
+        specialties: [`Character Makeup`, `Teledrama Continuity`, `Television Base`, `Location Shoots`],
+        timeline: [
+          { year: `2018 (Sample)`, role: `Broadcast Makeup Artist`, detail: `Assigned to morning magazine shows and outdoor live telecasts.` },
+          { year: `2021 (Sample)`, role: `Character & Drama Specialist`, detail: `Led multi-episode character continuity for prime-time teledrama schedules.` },
+          { year: `2024–Present (Sample)`, role: `Senior Television & Character Artist`, detail: `Mentors continuity workflows and handles complex character transformations.` }
+        ],
+        palette: [
+          { name: `Dramatic Crimson`, code: `AD-01`, finish: `Matte Velvet`, colorVar: `var(--swatch-crimson)`, note: `Used for dramatic stage and traditional performance accents.` },
+          { name: `Terracotta Copper`, code: `AD-02`, finish: `Matte`, colorVar: `var(--swatch-copper)`, note: `Warm crease blending for golden-hour location filming.` },
+          { name: `Sculpting Bronze`, code: `AD-03`, finish: `Velvet`, colorVar: `var(--swatch-bronze)`, note: `Character cheekbone hollowing and ageing depth.` },
+          { name: `Parchment Pearl`, code: `AD-04`, finish: `Matte Highlight`, colorVar: `var(--swatch-pearl)`, note: `Zero-flashback under-eye brightening powder.` },
+          { name: `Amber Glow`, code: `AD-05`, finish: `Metallic`, colorVar: `var(--swatch-amber)`, note: `Rich gold highlight for historical costume productions.` }
+        ],
+        achievements: [
+          `Sample Recognition: Continuity Lead across 120+ episodes of prime-time drama production.`,
+          `Sample Recognition: Featured sample character transformation showcase in department archive.`
+        ]
+      },
+      {
+        id: `buddika`,
+        staffId: `DTV-MA-03`,
+        name: `Buddika Nuwan`,
+        initials: `BN`,
+        title: `Special Production & Broadcast Artist`,
+        roleBadge: `Authorised Member`,
+        startYear: `2019 (Sample)`,
+        primaryColor: `var(--swatch-sapphire)`,
+        secondaryColor: `var(--swatch-teal)`,
+        accentColor: `var(--swatch-champagne)`,
+        bio: `Combines technical broadcast grooming with bold creative pigments, prosthetic FX accents, and high-contrast stage lighting makeup.`,
+        experience: `Focuses on special production broadcasts, live music stages, and precision male & female presenter camera readiness (sample development profile).`,
+        specialties: [`Special Production`, `Creative SFX`, `Broadcast Grooming`, `Stage Lighting`],
+        timeline: [
+          { year: `2019 (Sample)`, role: `Studio Makeup Artist`, detail: `Supported daily current affairs and panel debate programmes.` },
+          { year: `2022 (Sample)`, role: `Special Production Artist`, detail: `Expanded into themed fantasy episodes, neon-lit music stages, and prosthetic detailing.` },
+          { year: `2025–Present (Sample)`, role: `Special Production & Broadcast Artist`, detail: `Primary specialist for creative production specials and multi-camera live concerts.` }
+        ],
+        palette: [
+          { name: `Midnight Sapphire`, code: `BN-01`, finish: `Metallic Shimmer`, colorVar: `var(--swatch-sapphire)`, note: `High-impact cobalt-navy for concert and stage spotlighting.` },
+          { name: `Studio Teal`, code: `BN-02`, finish: `Satin`, colorVar: `var(--swatch-teal)`, note: `Cool editorial wash for modern music video and promo shoots.` },
+          { name: `Slate Espresso`, code: `BN-03`, finish: `Matte`, colorVar: `var(--swatch-espresso)`, note: `Beard, brow, and structural shadow definition.` },
+          { name: `Luminous Champagne`, code: `BN-04`, finish: `Shimmer`, colorVar: `var(--swatch-champagne)`, note: `Reflective lid pop under dark concert rigging.` },
+          { name: `Deep Plum`, code: `BN-05`, finish: `Matte`, colorVar: `var(--swatch-plum)`, note: `Smooth gradient transition shade for theatrical smokey eyes.` }
+        ],
+        achievements: [
+          `Sample Recognition: Lead SFX & Fantasy Look designer for special holiday broadcast features.`,
+          `Sample Recognition: Zero-shine HD grooming protocol contributor for live election night coverage.`
+        ]
+      },
+      {
+        id: `zhara`,
+        staffId: `DTV-MA-04`,
+        name: `Zhara De Silva`,
+        initials: `ZD`,
+        title: `Presenter, Anchor & Editorial Artist`,
+        roleBadge: `Authorised Member`,
+        startYear: `2020 (Sample)`,
+        primaryColor: `var(--swatch-orchid)`,
+        secondaryColor: `var(--swatch-rose)`,
+        accentColor: `var(--swatch-pearl)`,
+        bio: `Crafts luminous, camera-ready beauty for news anchors, lifestyle presenters, and red-carpet broadcast hosts with a signature soft-glam orchid palette.`,
+        experience: `Specialises in long-wear luminous skin finishes, soft winged definition, and rapid touch-ups between live news bulletins (sample development profile).`,
+        specialties: [`Presenter & Anchor`, `Soft Editorial Glam`, `HD Skin Prep`, `Red Carpet`],
+        timeline: [
+          { year: `2020 (Sample)`, role: `Junior Studio Makeup Artist`, detail: `Trained on rapid anchor touch-up turnarounds for early morning bulletins.` },
+          { year: `2022 (Sample)`, role: `Presenter Beauty Stylist`, detail: `Designated stylist for lifestyle talk shows and celebrity interview segments.` },
+          { year: `2024–Present (Sample)`, role: `Presenter, Anchor & Editorial Artist`, detail: `Leads signature anchor beauty aesthetics and red-carpet broadcast looks.` }
+        ],
+        palette: [
+          { name: `Studio Orchid`, code: `ZD-01`, finish: `Luminous Shimmer`, colorVar: `var(--swatch-orchid)`, note: `Vibrant berry-orchid accent for gala and entertainment hosts.` },
+          { name: `Velvet Rose`, code: `ZD-02`, finish: `Satin Cheek & Lid`, colorVar: `var(--swatch-rose)`, note: `Soft petal flush that prevents washout under bright desk lamps.` },
+          { name: `Soft Mauve`, code: `ZD-03`, finish: `Matte`, colorVar: `var(--swatch-mauve)`, note: `Everyday anchor crease shade for crisp, polished definition.` },
+          { name: `Pearl Highlight`, code: `ZD-04`, finish: `Micro-Satin`, colorVar: `var(--swatch-pearl)`, note: `Refined cheekbone glow engineered for 1080p/4K broadcast lenses.` },
+          { name: `Champagne Veil`, code: `ZD-05`, finish: `Shimmer`, colorVar: `var(--swatch-champagne)`, note: `Effortless lid wash for daytime magazine presenters.` }
+        ],
+        achievements: [
+          `Sample Recognition: Styled lead presenters for live National New Year & Awards broadcasts.`,
+          `Sample Recognition: Developed quick 12-minute anchor refresh routine for breaking news shifts.`
+        ]
+      },
+      {
+        id: `dakshina`,
+        staffId: `DTV-MA-05`,
+        name: `Dakshina Gammanpila`,
+        initials: `DG`,
+        title: `Creative Production & Event Artist`,
+        roleBadge: `Authorised Member`,
+        startYear: `2021 (Sample)`,
+        primaryColor: `var(--swatch-amber)`,
+        secondaryColor: `var(--swatch-copper)`,
+        accentColor: `var(--swatch-emerald)`,
+        bio: `Brings radiant metallic golds, warm copper blends, and culturally rooted traditional styling to musical reality shows, festive specials, and grand events.`,
+        experience: `Known for expressive colour storytelling, jewel-toned festival looks, and cohesive ensemble styling for dance and reality casts (sample development profile).`,
+        specialties: [`Event & Gala`, `Creative Looks`, `Traditional Styling`, `Reality Casts`],
+        timeline: [
+          { year: `2021 (Sample)`, role: `Ensemble Makeup Artist`, detail: `Joined reality television unit managing contestant and performer looks.` },
+          { year: `2023 (Sample)`, role: `Creative Event Stylist`, detail: `Designed coordinated metallic and traditional colour stories for seasonal specials.` },
+          { year: `2025–Present (Sample)`, role: `Creative Production & Event Artist`, detail: `Leads vibrant palette direction for outdoor festivals and live variety broadcasts.` }
+        ],
+        palette: [
+          { name: `Burnished Amber`, code: `DG-01`, finish: `Foil Metallic`, colorVar: `var(--swatch-amber)`, note: `Radiant marigold-gold pressed pigment for festive stage looks.` },
+          { name: `Spiced Copper`, code: `DG-02`, finish: `Satin Shimmer`, colorVar: `var(--swatch-copper)`, note: `Warm terracotta-copper ideal for rich golden undertones.` },
+          { name: `Ceylon Emerald`, code: `DG-03`, finish: `Jewel Satin`, colorVar: `var(--swatch-emerald)`, note: `Regal emerald contrast for traditional Kandyan & gala attire.` },
+          { name: `Royal Plum`, code: `DG-04`, finish: `Matte`, colorVar: `var(--swatch-plum)`, note: `Deep outer-V anchor creating dramatic spotlight dimension.` },
+          { name: `Rose Quartz`, code: `DG-05`, finish: `Velvet`, colorVar: `var(--swatch-rose)`, note: `Balanced blush-lip harmony for multi-performer casts.` }
+        ],
+        achievements: [
+          `Sample Recognition: Coordinated 18-performer colour palette for Avurudu live cultural gala.`,
+          `Sample Recognition: Recognised for high-speed backstage cast transformations under live cues.`
+        ]
+      },
+      {
+        id: `yashodara`,
+        staffId: `DTV-MA-06`,
+        name: `Yashodara Niyomali`,
+        initials: `YN`,
+        title: `Studio Beauty & Continuity Artist`,
+        roleBadge: `Authorised Member`,
+        startYear: `2022 (Sample)`,
+        primaryColor: `var(--swatch-emerald)`,
+        secondaryColor: `var(--swatch-mauve)`,
+        accentColor: `var(--swatch-rose)`,
+        bio: `Maintains meticulous visual continuity, natural broadcast complexions, and botanical jewel-toned editorial accents across daytime and evening studios.`,
+        experience: `Combines skin-first prep with disciplined continuity logs so multi-day shoots match seamlessly frame for frame (sample development profile).`,
+        specialties: [`Studio Continuity`, `Natural HD Beauty`, `Daytime Talk`, `Editorial Accents`],
+        timeline: [
+          { year: `2022 (Sample)`, role: `Makeup Department Trainee & Artist`, detail: `Entered TV Derana supporting daytime studio prep and continuity charts.` },
+          { year: `2024 (Sample)`, role: `Studio Continuity Artist`, detail: `Managed shade charts and look consistency across multi-week drama blocks.` },
+          { year: `2025–Present (Sample)`, role: `Studio Beauty & Continuity Artist`, detail: `Balances morning talk-show beauty with precision continuity documentation.` }
+        ],
+        palette: [
+          { name: `Ceylon Emerald`, code: `YN-01`, finish: `Silk Sheen`, colorVar: `var(--swatch-emerald)`, note: `Refined jade-emerald eyeliner accent for cultural features.` },
+          { name: `Dusty Mauve`, code: `YN-02`, finish: `Matte Velvet`, colorVar: `var(--swatch-mauve)`, note: `True-to-skin neutral mauve for effortless daytime continuity.` },
+          { name: `Petal Rose`, code: `YN-03`, finish: `Cream-to-Powder`, colorVar: `var(--swatch-rose)`, note: `Fresh morning complexion warmth without shimmer glare.` },
+          { name: `Gilt Champagne`, code: `YN-04`, finish: `Satin`, colorVar: `var(--swatch-champagne)`, note: `Subtle tear-duct lift for early 6:00 AM studio call times.` },
+          { name: `Warm Bronze`, code: `YN-05`, finish: `Matte`, colorVar: `var(--swatch-bronze)`, note: `Consistent contour calibration logged across episode blocks.` }
+        ],
+        achievements: [
+          `Sample Recognition: Zero-mismatch continuity record across 40-episode morning serial block.`,
+          `Sample Recognition: Pioneered digital shade-card logging for rapid shift handovers.`
+        ]
+      }
+    ];
+
+    const WORK_ARCHIVE = [
+      {
+        id: `look-01`,
+        title: `Prime Evening News Anchor HD`,
+        artistId: `udayanga`,
+        production: `News & Current Affairs`,
+        style: `HD Studio Matte`,
+        programme: `Ada Derana 6.55 PM Bulletin (Sample)`,
+        duration: `35 mins`,
+        lighting: `4K Cool Daylight Studio LED`,
+        swatches: [`var(--swatch-plum)`, `var(--swatch-champagne)`, `var(--swatch-espresso)`],
+        summary: `Oil-controlled satin matte base with muted plum-espresso eye definition engineered to stay shine-free under intense anchor desk lighting.`
+      },
+      {
+        id: `look-02`,
+        title: `Period Teledrama Elder Character`,
+        artistId: `amila`,
+        production: `Teledrama & Character`,
+        style: `Character & Prosthetic`,
+        programme: `Evening Drama Serial (Sample)`,
+        duration: `75 mins`,
+        lighting: `Warm Tungsten & Exterior Shade`,
+        swatches: [`var(--swatch-bronze)`, `var(--swatch-copper)`, `var(--swatch-pearl)`],
+        summary: `Subtle anatomical highlight and shadow stippling with fine crease detailing designed to read authentically in tight close-up shots.`
+      },
+      {
+        id: `look-03`,
+        title: `Neon Concert Stage Vocalist`,
+        artistId: `buddika`,
+        production: `Reality & Entertainment`,
+        style: `Avant-Garde Colour`,
+        programme: `Derana Dream Star Live Finale (Sample)`,
+        duration: `50 mins`,
+        lighting: `Dynamic RGB Moving Heads`,
+        swatches: [`var(--swatch-sapphire)`, `var(--swatch-teal)`, `var(--swatch-champagne)`],
+        summary: `High-reflectance sapphire and teal metallic lid placement anchored with waterproof matte liner to cut through atmospheric stage haze.`
+      },
+      {
+        id: `look-04`,
+        title: `Red Carpet Gala Host Glow`,
+        artistId: `zhara`,
+        production: `Special Broadcasts & Galas`,
+        style: `Editorial Glow`,
+        programme: `TV Derana Film & Media Gala (Sample)`,
+        duration: `45 mins`,
+        lighting: `Camera Flash & Spotlights`,
+        swatches: [`var(--swatch-orchid)`, `var(--swatch-rose)`, `var(--swatch-pearl)`],
+        summary: `Luminous orchid halo eye paired with micro-satin rose cheek sculpting and soft-focus lip definition for flash photography.`
+      },
+      {
+        id: `look-05`,
+        title: `Avurudu Heritage Ensemble`,
+        artistId: `dakshina`,
+        production: `Special Broadcasts & Galas`,
+        style: `Traditional & Ceremonial`,
+        programme: `New Year Live Cultural Broadcast (Sample)`,
+        duration: `40 mins`,
+        lighting: `Outdoor Natural Morning Light`,
+        swatches: [`var(--swatch-amber)`, `var(--swatch-emerald)`, `var(--swatch-crimson)`],
+        summary: `Burnished amber foil lids paired with Ceylon emerald kohl accents and classic crimson lip, harmonised with traditional silk attire.`
+      },
+      {
+        id: `look-06`,
+        title: `Daytime Talk Presenter Fresh`,
+        artistId: `yashodara`,
+        production: `News & Current Affairs`,
+        style: `HD Studio Matte`,
+        programme: `Derana Aruna Morning Show (Sample)`,
+        duration: `25 mins`,
+        lighting: `Soft Diffused Studio Panels`,
+        swatches: [`var(--swatch-mauve)`, `var(--swatch-rose)`, `var(--swatch-champagne)`],
+        summary: `Breathable complexion veil with dusty mauve crease warmth and wide-awake champagne inner corners for early morning broadcasts.`
+      },
+      {
+        id: `look-07`,
+        title: `Awards Night Couture Plum`,
+        artistId: `udayanga`,
+        production: `Special Broadcasts & Galas`,
+        style: `Editorial Glow`,
+        programme: `Derana Lux Awards Special (Sample)`,
+        duration: `55 mins`,
+        lighting: `Warm Gold Stage Rig`,
+        swatches: [`var(--swatch-plum)`, `var(--swatch-crimson)`, `var(--swatch-champagne)`],
+        summary: `Smoky royal plum wing blended seamlessly into burnished champagne brow highlights for luxury evening broadcast elegance.`
+      },
+      {
+        id: `look-08`,
+        title: `Action Sequence Weathering FX`,
+        artistId: `amila`,
+        production: `Teledrama & Character`,
+        style: `Character & Prosthetic`,
+        programme: `Location Drama Unit B (Sample)`,
+        duration: `60 mins`,
+        lighting: `Overcast Exterior Daylight`,
+        swatches: [`var(--swatch-crimson)`, `var(--swatch-bronze)`, `var(--swatch-espresso)`],
+        summary: `Layered grime, perspiration sheen, and realistic abrasion shading maintained reliably across 10-hour exterior continuity blocks.`
+      },
+      {
+        id: `look-09`,
+        title: `Midnight Cyber Fantasy Dance`,
+        artistId: `buddika`,
+        production: `Reality & Entertainment`,
+        style: `Avant-Garde Colour`,
+        programme: `Reality Dance Semi-Final (Sample)`,
+        duration: `65 mins`,
+        lighting: `UV & Cool Cyan Spotlights`,
+        swatches: [`var(--swatch-sapphire)`, `var(--swatch-plum)`, `var(--swatch-pearl)`],
+        summary: `Graphic geometric liner structure combining deep plum base gradients with sapphire metallic accents for high-tempo choreography.`
+      },
+      {
+        id: `look-10`,
+        title: `Panel Debate Neutral Polish`,
+        artistId: `zhara`,
+        production: `News & Current Affairs`,
+        style: `HD Studio Matte`,
+        programme: `360 Current Affairs Studio (Sample)`,
+        duration: `20 mins`,
+        lighting: `Overhead Broadcast Grid`,
+        swatches: [`var(--swatch-mauve)`, `var(--swatch-bronze)`, `var(--swatch-pearl)`],
+        summary: `Camera-invisible colour correction and zero-sheen powder finish tailored for high-stakes political and current affairs interviews.`
+      },
+      {
+        id: `look-11`,
+        title: `Festive Gold & Copper Cast`,
+        artistId: `dakshina`,
+        production: `Reality & Entertainment`,
+        style: `Traditional & Ceremonial`,
+        programme: `Musical Variety Special (Sample)`,
+        duration: `45 mins`,
+        lighting: `Warm Tungsten & Golden Backlight`,
+        swatches: [`var(--swatch-copper)`, `var(--swatch-amber)`, `var(--swatch-rose)`],
+        summary: `Radiant copper-amber lid wash complemented by warm rose cheeks, engineered to unify a 12-member live vocal troupe.`
+      },
+      {
+        id: `look-12`,
+        title: `Botanical Emerald Editorial`,
+        artistId: `yashodara`,
+        production: `Special Broadcasts & Galas`,
+        style: `Editorial Glow`,
+        programme: `Lifestyle Feature Promo (Sample)`,
+        duration: `40 mins`,
+        lighting: `Ring Light & Softbox`,
+        swatches: [`var(--swatch-emerald)`, `var(--swatch-champagne)`, `var(--swatch-rose)`],
+        summary: `Crisp Ceylon emerald lower-lash liner paired with dewy champagne skin and velvet rose lip tint for promotional portraits.`
+      }
+    ];
+
+    const DEFAULT_SHIFTS = [
+      {
+        id: `SH-101`,
+        day: `Monday`,
+        date: `2026-11-23`,
+        time: `05:30 – 13:30`,
+        studio: `Studio A · Derana Aruna`,
+        artistId: `yashodara`,
+        duty: `Morning Show Anchor & Guest Prep`,
+        status: `Published`,
+        notes: `Natural HD matte finish; 3 live panel guests.`
+      },
+      {
+        id: `SH-102`,
+        day: `Monday`,
+        date: `2026-11-23`,
+        time: `14:00 – 22:00`,
+        studio: `Studio B · Prime News Desk`,
+        artistId: `udayanga`,
+        duty: `Department Head Supervision & 6.55 PM Lead`,
+        status: `Published`,
+        notes: `Sign off weekly continuity kit & evening anchors.`
+      },
+      {
+        id: `SH-103`,
+        day: `Tuesday`,
+        date: `2026-11-24`,
+        time: `08:00 – 17:00`,
+        studio: `Location Unit · Teledrama`,
+        artistId: `amila`,
+        duty: `Character & Continuity Lead`,
+        status: `Published`,
+        notes: `Outdoor period scene; carry waterproof sealers.`
+      },
+      {
+        id: `SH-104`,
+        day: `Tuesday`,
+        date: `2026-11-24`,
+        time: `13:00 – 21:30`,
+        studio: `Studio B · Current Affairs`,
+        artistId: `zhara`,
+        duty: `Evening Anchor & 360 Panel Styling`,
+        status: `Published`,
+        notes: `12-minute bulletin refresh window at 18:40.`
+      },
+      {
+        id: `SH-105`,
+        day: `Wednesday`,
+        date: `2026-11-25`,
+        time: `11:00 – 20:00`,
+        studio: `Stage C · Reality Rehearsal`,
+        artistId: `buddika`,
+        duty: `Special Stage Lighting & SFX Test`,
+        status: `Published`,
+        notes: `Coordinate sapphire metallic test under moving RGB rigs.`
+      },
+      {
+        id: `SH-106`,
+        day: `Thursday`,
+        date: `2026-11-26`,
+        time: `10:00 – 19:00`,
+        studio: `Stage C · Musical Variety`,
+        artistId: `dakshina`,
+        duty: `Ensemble Performer & Host Styling`,
+        status: `Published`,
+        notes: `Burnished amber & emerald palette for 8 dancers.`
+      },
+      {
+        id: `SH-107`,
+        day: `Friday`,
+        date: `2026-11-27`,
+        time: `14:00 – 22:30`,
+        studio: `Studio A · Weekend Preview`,
+        artistId: `zhara`,
+        duty: `Presenter Soft-Glam & Promo Shoot`,
+        status: `Published`,
+        notes: `Orchid editorial palette for weekend entertainment promos.`
+      },
+      {
+        id: `SH-108`,
+        day: `Saturday`,
+        date: `2026-11-28`,
+        time: `15:00 – 23:30`,
+        studio: `Main Auditorium · Live Gala`,
+        artistId: `udayanga`,
+        duty: `Full 6-Artist Gala Command`,
+        status: `Published`,
+        notes: `All department call at 15:00; formal broadcast attire.`
+      },
+      {
+        id: `SH-109`,
+        day: `Sunday`,
+        date: `2026-11-29`,
+        time: `09:00 – 17:00`,
+        studio: `Studio B · Special Documentary`,
+        artistId: `buddika`,
+        duty: `Interviewee & Host Grooming`,
+        status: `Draft`,
+        notes: `Pending final producer confirmation before publishing.`
+      }
+    ];
+
+    const DEFAULT_USERS = [
+      { staffId: `DTV-HD-01`, artistId: `udayanga`, name: `Udayanga Kamaljith`, role: `admin`, roleLabel: `Department Head (Admin)`, active: true },
+      { staffId: `DTV-MA-02`, artistId: `amila`, name: `Amila Dilruksha`, role: `member`, roleLabel: `Authorised Member`, active: true },
+      { staffId: `DTV-MA-03`, artistId: `buddika`, name: `Buddika Nuwan`, role: `member`, roleLabel: `Authorised Member`, active: true },
+      { staffId: `DTV-MA-04`, artistId: `zhara`, name: `Zhara De Silva`, role: `member`, roleLabel: `Authorised Member`, active: true },
+      { staffId: `DTV-MA-05`, artistId: `dakshina`, name: `Dakshina Gammanpila`, role: `member`, roleLabel: `Authorised Member`, active: true },
+      { staffId: `DTV-MA-06`, artistId: `yashodara`, name: `Yashodara Niyomali`, role: `member`, roleLabel: `Authorised Member`, active: true }
+    ];
+
+    /* ============================================================
+       APPLICATION STATE
+       ============================================================ */
+    let appState = {
+      activeView: `overview`,
+      selectedArtistId: null,
+      selectedPortfolioCategory: `All`,
+      selectedPortfolioPanIndex: 0,
+      selectedLookId: null,
+      introDismissed: false,
+      blockedAttempts: 3,
+      authSession: {
+        loggedIn: false,
+        staffId: null,
+        role: null
+      },
+      editingShiftId: null,
+      rosterDayFilter: `All`,
+      shifts: JSON.parse(JSON.stringify(DEFAULT_SHIFTS)),
+      users: JSON.parse(JSON.stringify(DEFAULT_USERS))
+    };
+
+    /* ============================================================
+       PERSISTENCE HELPERS (notebookAppApi)
+       ============================================================ */
+    async function persistState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+        try {
+          await window.notebookAppApi.setAppState({
+            introDismissed: appState.introDismissed,
+            blockedAttempts: appState.blockedAttempts,
+            authSession: appState.authSession,
+            shifts: appState.shifts,
+            users: appState.users
+          });
+        } catch (err) {
+          /* Non-fatal if host limits exceeded */
+        }
+      }
+    }
+
+    function refreshIcons() {
+      if (window.lucide && typeof window.lucide.createIcons === `function`) {
+        window.lucide.createIcons();
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, `&amp;`)
+        .replace(/</g, `&lt;`)
+        .replace(/>/g, `&gt;`)
+        .replace(/"/g, `&quot;`)
+        .replace(/'/g, `&#39;`);
+    }
+
+    function getArtistById(id) {
+      return ARTISTS.find(a => a.id === id) || ARTISTS[0];
+    }
+
+    /* ============================================================
+       BESPOKE SVG PORTRAIT & LOOK PLATE GENERATORS (ZERO INLINE HEX)
+       ============================================================ */
+    function buildArtistPortraitSvg(artist) {
+      return `
+        <svg viewBox="0 0 200 250" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${escapeHtml(artist.name)} editorial portrait emblem">
+          <rect width="200" height="250" fill="var(--surface-container)"/>
+          <rect x="8" y="8" width="184" height="234" stroke="var(--outline)" stroke-width="1"/>
+          <rect x="14" y="14" width="172" height="222" stroke="var(--outline-variant)" stroke-width="1"/>
+          <!-- Cosmetic Brush & Pigment Aura -->
+          <circle cx="100" cy="96" r="56" fill="${artist.primaryColor}" opacity="0.28"/>
+          <circle cx="100" cy="96" r="44" stroke="${artist.secondaryColor}" stroke-width="1.2" opacity="0.8"/>
+          <!-- Editorial Portrait Silhouette -->
+          <circle cx="100" cy="88" r="28" fill="var(--surface-container-high)" stroke="var(--outline)" stroke-width="1.5"/>
+          <path d="M52 178C56 142 74 128 100 128C126 128 144 142 148 178" fill="var(--surface-container-high)" stroke="var(--outline)" stroke-width="1.5"/>
+          <!-- Pigment Stroke Accent -->
+          <path d="M78 84C84 78 93 78 96 84" stroke="${artist.accentColor}" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M104 84C107 78 116 78 122 84" stroke="${artist.accentColor}" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M92 103C97 106 103 106 108 103" stroke="${artist.primaryColor}" stroke-width="2" stroke-linecap="round"/>
+          <!-- Artist Monogram Plate -->
+          <rect x="44" y="190" width="112" height="32" fill="var(--background)" stroke="var(--outline)" stroke-width="1"/>
+          <text x="100" y="210" text-anchor="middle" fill="var(--primary)" font-family="Josefin Sans, sans-serif" font-weight="600" font-size="13" letter-spacing="3">${escapeHtml(artist.initials)} · DTV</text>
+        </svg>
+      `;
+    }
+
+    function buildLookPlateSvg(look, artist) {
+      const sw1 = look.swatches[0] || artist.primaryColor;
+      const sw2 = look.swatches[1] || artist.secondaryColor;
+      const sw3 = look.swatches[2] || artist.accentColor;
+      return `
+        <svg viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${escapeHtml(look.title)} cosmetic look plate">
+          <rect width="320" height="200" fill="var(--background)"/>
+          <rect x="10" y="10" width="300" height="180" stroke="var(--outline-variant)" stroke-width="1"/>
+          <!-- Editorial Colour Wash -->
+          <circle cx="96" cy="94" r="56" fill="${sw1}" opacity="0.34"/>
+          <circle cx="148" cy="108" r="42" fill="${sw2}" opacity="0.28"/>
+          <!-- Stylised Studio Frame & Compact Wells -->
+          <path d="M52 100C72 70 116 70 138 100C116 128 72 128 52 100Z" fill="var(--surface-container-high)" stroke="var(--outline)" stroke-width="1.5"/>
+          <circle cx="95" cy="100" r="14" fill="${sw1}" stroke="var(--outline)" stroke-width="1.5"/>
+          <circle cx="95" cy="100" r="6" fill="${sw2}"/>
+          <!-- Cosmetic Brush Silhouette -->
+          <line x1="172" y1="150" x2="226" y2="54" stroke="var(--outline)" stroke-width="3"/>
+          <path d="M222 50L234 34L240 42L230 58Z" fill="${sw3}"/>
+          <!-- Swatch Trio -->
+          <circle cx="256" cy="70" r="14" fill="${sw1}" stroke="var(--outline)" stroke-width="1.5"/>
+          <circle cx="256" cy="104" r="14" fill="${sw2}" stroke="var(--outline)" stroke-width="1.5"/>
+          <circle cx="256" cy="138" r="14" fill="${sw3}" stroke="var(--outline)" stroke-width="1.5"/>
+          <text x="26" y="174" fill="var(--primary)" font-family="Josefin Sans, sans-serif" font-weight="600" font-size="10" letter-spacing="2">${escapeHtml(look.style.toUpperCase())}</text>
+        </svg>
+      `;
+    }
+
+    /* ============================================================
+       INTRO UNBOXING ANIMATION HANDLERS (HOISTED)
+       ============================================================ */
+    function unboxPalette() {
+      const box = document.getElementById(`compact-box`);
+      if (box) {
+        box.classList.add(`is-unboxed`);
+      }
+      const readout = document.getElementById(`intro-shade-readout`);
+      if (readout) {
+        readout.innerHTML = `<span class="mono-voice text-gold">Palette Unboxed — Click any pigment pan above or enter the DTV Makeup Roster</span>`;
+      }
+    }
+
+    function previewIntroShade(artistName, title, shadeText, colorToken) {
+      const box = document.getElementById(`compact-box`);
+      if (box && !box.classList.contains(`is-unboxed`)) {
+        box.classList.add(`is-unboxed`);
+      }
+      const readout = document.getElementById(`intro-shade-readout`);
+      if (readout) {
+        readout.innerHTML = `
+          <div class="row-wrap" style="justify-content: center;">
+            <span class="swatch-dot" style="background-color: ${colorToken};"></span>
+            <span class="label-voice">${escapeHtml(artistName)}</span>
+            <span class="tag">${escapeHtml(title)}</span>
+            <span class="mono-voice text-muted">${escapeHtml(shadeText)}</span>
+          </div>
+        `;
+      }
+    }
+
+    function dismissIntro() {
+      const overlay = document.getElementById(`intro-overlay`);
+      if (overlay) {
+        overlay.classList.add(`is-hidden`);
+      }
+      appState.introDismissed = true;
+      persistState();
+    }
+
+    function replayIntro() {
+      const overlay = document.getElementById(`intro-overlay`);
+      const box = document.getElementById(`compact-box`);
+      if (box) box.classList.remove(`is-unboxed`);
+      if (overlay) overlay.classList.remove(`is-hidden`);
+    }
+
+    /* ============================================================
+       PRIMARY NAVIGATION & VIEW SWITCHING
+       ============================================================ */
+    function switchView(viewName) {
+      appState.activeView = viewName;
+
+      const views = [`overview`, `artists`, `archive`, `roster`];
+      views.forEach(v => {
+        const panel = document.getElementById(`view-${v}`);
+        const navBtn = document.getElementById(`nav-${v}`);
+        if (panel) {
+          if (v === viewName) {
+            panel.classList.add(`is-visible`);
+          } else {
+            panel.classList.remove(`is-visible`);
+          }
+        }
+        if (navBtn) {
+          if (v === viewName) {
+            navBtn.classList.add(`is-active`);
+          } else {
+            navBtn.classList.remove(`is-active`);
+          }
+        }
+      });
+
+      if (viewName === `artists` && appState.selectedArtistId) {
+        /* Keep directory accessible unless specifically viewing an artist */
+      }
+      if (viewName === `roster`) {
+        renderRosterPortal();
+      }
+      refreshIcons();
+    }
+
+    /* ============================================================
+       VIEW 1: OVERVIEW RENDERERS
+       ============================================================ */
+    function renderOverview() {
+      const swatchBar = document.getElementById(`overview-swatch-bar`);
+      if (swatchBar) {
+        swatchBar.innerHTML = DEPARTMENT_SWATCHES.map((sw, idx) => `
+          <button type="button" class="swatch-chip-btn ${idx === 0 ? `is-selected` : ``}" onclick="selectOverviewSwatch('${sw.id}', this)">
+            <span class="swatch-dot" style="background-color: ${sw.colorVar};"></span>
+            <span class="label-voice" style="color: var(--on-surface); letter-spacing: 0.12em;">${escapeHtml(sw.name)}</span>
+          </button>
+        `).join(``);
+      }
+
+      const artistsGrid = document.getElementById(`overview-artists-grid`);
+      if (artistsGrid) {
+        artistsGrid.innerHTML = ARTISTS.map(a => `
+          <div class="artist-card-wrap">
+            <article class="artist-card">
+              <div class="artist-portrait-frame">
+                ${buildArtistPortraitSvg(a)}
+              </div>
+              <div class="stack-sm">
+                <div class="row-wrap" style="justify-content: space-between;">
+                  <span class="tag ${a.id === `udayanga` ? `tag-positive` : ``}">${escapeHtml(a.roleBadge)}</span>
+                </div>
+                <h4 class="deco-title" style="font-size: var(--subhead-size);">${escapeHtml(a.name)}</h4>
+                <span class="label-voice" style="font-size: 0.7rem;">${escapeHtml(a.title)}</span>
+                <p class="text-muted" style="margin: 0; font-size: 0.875rem;">${escapeHtml(a.bio)}</p>
+                <div class="artist-mini-swatches">
+                  ${a.palette.slice(0, 4).map(p => `<span class="mini-pan" title="${escapeHtml(p.name)}" style="background-color: ${p.colorVar};"></span>`).join(``)}
+                </div>
+                <div style="padding-top: var(--space-xs);">
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="openArtistPortfolio('${a.id}')">
+                    Open Portfolio
+                    <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+        `).join(``);
+      }
+
+      updateOverviewKpis();
+    }
+
+    function updateOverviewKpis() {
+      const pubEl = document.getElementById(`kpi-published-shifts`);
+      if (pubEl) {
+        const count = appState.shifts.filter(s => s.status === `Published`).length;
+        pubEl.textContent = String(count).padStart(2, `0`);
+      }
+      const archEl = document.getElementById(`kpi-archive-looks`);
+      if (archEl) {
+        archEl.textContent = String(WORK_ARCHIVE.length).padStart(2, `0`);
+      }
+      const blkEl = document.getElementById(`kpi-blocked-attempts`);
+      if (blkEl) {
+        blkEl.textContent = String(appState.blockedAttempts).padStart(2, `0`);
+      }
+    }
+
+    function selectOverviewSwatch(swatchId, btnEl) {
+      const sw = DEPARTMENT_SWATCHES.find(s => s.id === swatchId);
+      if (!sw) return;
+
+      const allBtns = document.querySelectorAll(`#overview-swatch-bar .swatch-chip-btn`);
+      allBtns.forEach(b => b.classList.remove(`is-selected`));
+      if (btnEl) btnEl.classList.add(`is-selected`);
+
+      const detail = document.getElementById(`overview-swatch-detail`);
+      if (detail) {
+        detail.innerHTML = `
+          <div class="row-wrap">
+            <span class="swatch-dot" style="background-color: ${sw.colorVar}; width: 36px; height: 36px;"></span>
+            <div class="stack-sm" style="gap: 2px;">
+              <span class="label-voice">${escapeHtml(sw.name)} · ${escapeHtml(sw.code)} (${escapeHtml(sw.finish)})</span>
+              <span class="text-muted" style="font-size: 0.875rem;">${escapeHtml(sw.note)}</span>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    /* ============================================================
+       VIEW 2: ARTIST PORTFOLIOS & ANIMATED REVEAL
+       ============================================================ */
+    function renderArtistsDirectory() {
+      const grid = document.getElementById(`artists-directory-grid`);
+      if (!grid) return;
+
+      grid.innerHTML = ARTISTS.map(a => `
+        <div class="artist-card-wrap">
+          <article class="artist-card">
+            <div class="artist-portrait-frame">
+              ${buildArtistPortraitSvg(a)}
+            </div>
+            <div class="stack-sm">
+              <div class="row-wrap" style="justify-content: space-between;">
+                <span class="tag">${escapeHtml(a.staffId)}</span>
+                <span class="mono-voice text-muted">${escapeHtml(a.startYear)}</span>
+              </div>
+              <h3 class="deco-title" style="font-size: var(--subhead-size);">${escapeHtml(a.name)}</h3>
+              <span class="label-voice">${escapeHtml(a.title)}</span>
+              <p class="text-muted" style="margin: 0; font-size: 0.9rem;">${escapeHtml(a.bio)}</p>
+              <div class="row-wrap">
+                ${a.specialties.slice(0, 3).map(sp => `<span class="tag tag-rose">${escapeHtml(sp)}</span>`).join(``)}
+              </div>
+              <div class="artist-mini-swatches" style="padding: var(--space-xs) 0;">
+                ${a.palette.map(p => `<span class="mini-pan" title="${escapeHtml(p.name)}" style="background-color: ${p.colorVar};"></span>`).join(``)}
+              </div>
+              <button type="button" class="btn btn-primary btn-sm" onclick="openArtistPortfolio('${a.id}')">
+                <i data-lucide="sparkles" aria-hidden="true"></i>
+                Launch Individual Portfolio
+              </button>
+            </div>
+          </article>
+        </div>
+      `).join(``);
+    }
+
+    function openArtistPortfolio(artistId) {
+      const artist = getArtistById(artistId);
+      appState.selectedArtistId = artist.id;
+      appState.selectedPortfolioCategory = `All`;
+      appState.selectedPortfolioPanIndex = 0;
+
+      if (appState.activeView !== `artists`) {
+        switchView(`artists`);
+      }
+
+      const dirPanel = document.getElementById(`artists-directory-panel`);
+      const detailPanel = document.getElementById(`portfolio-detail-panel`);
+      const curtain = document.getElementById(`portfolio-curtain`);
+      const curtainHolder = document.getElementById(`curtain-portrait-holder`);
+      const curtainName = document.getElementById(`curtain-artist-name`);
+      const curtainRole = document.getElementById(`curtain-artist-role`);
+
+      if (dirPanel) dirPanel.style.display = `none`;
+      if (detailPanel) detailPanel.style.display = `none`;
+
+      if (curtain && curtainHolder && curtainName && curtainRole) {
+        curtainHolder.innerHTML = buildArtistPortraitSvg(artist);
+        curtainName.textContent = artist.name;
+        curtainRole.textContent = `${artist.title} · TV Derana Makeup Department`;
+        curtain.classList.add(`is-active`);
+      }
+
+      window.setTimeout(() => {
+        if (curtain) curtain.classList.remove(`is-active`);
+        renderIndividualPortfolio(artist);
+        if (detailPanel) detailPanel.style.display = `flex`;
+        refreshIcons();
+      }, 360);
+    }
+
+    function closeArtistPortfolio() {
+      appState.selectedArtistId = null;
+      const dirPanel = document.getElementById(`artists-directory-panel`);
+      const detailPanel = document.getElementById(`portfolio-detail-panel`);
+      const curtain = document.getElementById(`portfolio-curtain`);
+      if (curtain) curtain.classList.remove(`is-active`);
+      if (detailPanel) detailPanel.style.display = `none`;
+      if (dirPanel) dirPanel.style.display = `flex`;
+      refreshIcons();
+    }
+
+    function renderIndividualPortfolio(artist) {
+      const detailPanel = document.getElementById(`portfolio-detail-panel`);
+      if (!detailPanel) return;
+
+      const idx = ARTISTS.findIndex(a => a.id === artist.id);
+      const prevArtist = ARTISTS[(idx - 1 + ARTISTS.length) % ARTISTS.length];
+      const nextArtist = ARTISTS[(idx + 1) % ARTISTS.length];
+
+      const artistLooks = WORK_ARCHIVE.filter(l => l.artistId === artist.id);
+      const categories = [`All`, ...Array.from(new Set(artistLooks.map(l => l.style)))];
+      const filteredLooks = appState.selectedPortfolioCategory === `All`
+        ? artistLooks
+        : artistLooks.filter(l => l.style === appState.selectedPortfolioCategory);
+
+      const activePan = artist.palette[appState.selectedPortfolioPanIndex] || artist.palette[0];
+
+      detailPanel.innerHTML = `
+        <div class="section-head">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="closeArtistPortfolio()">
+            <i data-lucide="arrow-left" aria-hidden="true"></i>
+            Back to All 6 Artists
+          </button>
+          <div class="row-wrap">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="openArtistPortfolio('${prevArtist.id}')">
+              &larr; ${escapeHtml(prevArtist.name.split(` `)[0])}
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="openArtistPortfolio('${nextArtist.id}')">
+              ${escapeHtml(nextArtist.name.split(` `)[0])} &rarr;
+            </button>
+          </div>
+        </div>
+
+        <!-- Profile Hero -->
+        <div class="deco-frame portfolio-hero" style="text-align: left;">
+          <div class="artist-portrait-frame" style="max-width: 240px;">
+            ${buildArtistPortraitSvg(artist)}
+          </div>
+          <div class="stack-md">
+            <div class="row-wrap">
+              <span class="tag tag-positive">${escapeHtml(artist.roleBadge)}</span>
+              <span class="tag">Staff ID: ${escapeHtml(artist.staffId)}</span>
+              <span class="tag tag-rose">Joined TV Derana: ${escapeHtml(artist.startYear)}</span>
+            </div>
+            <h2 class="deco-title" style="font-size: var(--display-size);">${escapeHtml(artist.name)}</h2>
+            <span class="label-voice">${escapeHtml(artist.title)}</span>
+            <p style="margin: 0;">${escapeHtml(artist.bio)}</p>
+            <p class="text-muted" style="margin: 0;">${escapeHtml(artist.experience)}</p>
+            <div class="row-wrap">
+              ${artist.specialties.map(s => `<span class="tag">${escapeHtml(s)}</span>`).join(``)}
+            </div>
+          </div>
+        </div>
+
+        <!-- Signature Cosmetic Colour Palette -->
+        <div class="panel stack-md">
+          <div class="section-head" style="margin-bottom: var(--space-sm);">
+            <div>
+              <span class="label-voice">Signature Makeup Colour Palette</span>
+              <h3 class="section-title">Custom Eyeshadow &amp; Pigment Swatches</h3>
+            </div>
+            <span class="tag">Interactive Swatch Compact</span>
+          </div>
+
+          <div class="signature-compact">
+            <div class="pan-rack">
+              ${artist.palette.map((pan, pIdx) => `
+                <button type="button" class="pan-button ${pIdx === appState.selectedPortfolioPanIndex ? `is-active` : ``}" onclick="selectArtistPan('${artist.id}', ${pIdx})">
+                  <span class="pan-well-lg" style="background-color: ${pan.colorVar};"></span>
+                  <span class="label-voice" style="font-size: 0.68rem; text-align: center;">${escapeHtml(pan.name)}</span>
+                  <span class="mono-voice text-muted">${escapeHtml(pan.code)}</span>
+                </button>
+              `).join(``)}
+            </div>
+
+            <div class="panel-filled stack-sm" style="justify-content: center;">
+              <div class="row-wrap">
+                <span class="pan-well-lg" style="background-color: ${activePan.colorVar};"></span>
+                <div class="stack-sm" style="gap: 2px;">
+                  <span class="label-voice">${escapeHtml(activePan.name)}</span>
+                  <span class="mono-voice text-rose">${escapeHtml(activePan.code)} · ${escapeHtml(activePan.finish)}</span>
+                </div>
+              </div>
+              <p style="margin: 0;">${escapeHtml(activePan.note)}</p>
+              <span class="mono-voice text-muted">Sample pigment calibration for TV Derana broadcast cameras.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Career Timeline & Achievements -->
+        <div class="split-grid">
+          <div class="panel stack-md">
+            <div class="row-wrap" style="justify-content: space-between;">
+              <span class="label-voice">TV Derana Career Journey</span>
+              <span class="tag tag-rose">Sample Timeline</span>
+            </div>
+            <div class="timeline-list">
+              ${artist.timeline.map(t => `
+                <div class="timeline-item stack-sm">
+                  <span class="mono-voice text-gold">${escapeHtml(t.year)}</span>
+                  <strong style="font-family: var(--font-headline); letter-spacing: 0.08em; text-transform: uppercase;">${escapeHtml(t.role)}</strong>
+                  <p class="text-muted" style="margin: 0; font-size: 0.9rem;">${escapeHtml(t.detail)}</p>
+                </div>
+              `).join(``)}
+            </div>
+          </div>
+
+          <div class="panel-filled stack-md">
+            <div class="row-wrap" style="justify-content: space-between;">
+              <span class="label-voice">Achievements &amp; Production Highlights</span>
+              <span class="tag tag-rose">Sample Entries</span>
+            </div>
+            <ul style="margin: 0; padding-left: 1.25rem;" class="stack-sm">
+              ${artist.achievements.map(ach => `<li>${escapeHtml(ach)}</li>`).join(``)}
+            </ul>
+            <div class="status-banner" style="margin-top: auto;">
+              <span class="text-muted" style="font-size: 0.85rem;">
+                Per proposal guidelines, real production accolades are entered post-deployment via the Department Head portal.
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Artist Work Gallery -->
+        <div class="stack-md">
+          <div class="section-head">
+            <div>
+              <span class="label-voice">Portfolio Look Plates</span>
+              <h3 class="section-title">${escapeHtml(artist.name.split(` `)[0])}’s Work Gallery</h3>
+            </div>
+            <div class="row-wrap">
+              ${categories.map(cat => `
+                <button type="button" class="btn btn-sm ${cat === appState.selectedPortfolioCategory ? `btn-primary` : `btn-secondary`}" onclick="filterPortfolioGallery('${artist.id}', '${escapeHtml(cat)}')">
+                  ${escapeHtml(cat)}
+                </button>
+              `).join(``)}
+            </div>
+          </div>
+
+          <div class="card-grid">
+            ${filteredLooks.map(look => `
+              <article class="look-plate-card">
+                <div class="look-plate-visual">
+                  ${buildLookPlateSvg(look, artist)}
+                </div>
+                <div class="look-plate-body">
+                  <div class="row-wrap" style="justify-content: space-between;">
+                    <span class="tag">${escapeHtml(look.production)}</span>
+                    <span class="mono-voice text-muted">${escapeHtml(look.duration)}</span>
+                  </div>
+                  <h4 class="deco-title" style="font-size: var(--subhead-size);">${escapeHtml(look.title)}</h4>
+                  <span class="mono-voice text-rose">${escapeHtml(look.programme)}</span>
+                  <p class="text-muted" style="margin: 0; font-size: 0.9rem;">${escapeHtml(look.summary)}</p>
+                  <div class="artist-mini-swatches" style="margin-top: auto; padding-top: var(--space-sm);">
+                    ${look.swatches.map(sw => `<span class="mini-pan" style="background-color: ${sw};"></span>`).join(``)}
+                    <span class="mono-voice text-muted" style="margin-left: var(--space-xs);">${escapeHtml(look.lighting)}</span>
+                  </div>
+                </div>
+              </article>
+            `).join(``)}
+          </div>
+        </div>
+      `;
+    }
+
+    function selectArtistPan(artistId, panIndex) {
+      appState.selectedPortfolioPanIndex = panIndex;
+      const artist = getArtistById(artistId);
+      renderIndividualPortfolio(artist);
+      refreshIcons();
+    }
+
+    function filterPortfolioGallery(artistId, category) {
+      appState.selectedPortfolioCategory = category;
+      const artist = getArtistById(artistId);
+      renderIndividualPortfolio(artist);
+      refreshIcons();
+    }
+
+    /* ============================================================
+       VIEW 3: FILTERABLE MAKEUP WORK ARCHIVE
+       ============================================================ */
+    function initArchiveFilters() {
+      const artistSelect = document.getElementById(`archive-artist-filter`);
+      if (artistSelect) {
+        artistSelect.innerHTML = `<option value="all">All 6 Artists</option>` + ARTISTS.map(a =>
+          `<option value="${escapeHtml(a.id)}">${escapeHtml(a.name)}</option>`
+        ).join(``);
+      }
+      applyArchiveFilters();
+    }
+
+    function applyArchiveFilters() {
+      const searchEl = document.getElementById(`archive-search`);
+      const prodEl = document.getElementById(`archive-production-filter`);
+      const styleEl = document.getElementById(`archive-style-filter`);
+      const artistEl = document.getElementById(`archive-artist-filter`);
+
+      const query = searchEl ? searchEl.value.trim().toLowerCase() : ``;
+      const prodVal = prodEl ? prodEl.value : `all`;
+      const styleVal = styleEl ? styleEl.value : `all`;
+      const artistVal = artistEl ? artistEl.value : `all`;
+
+      const filtered = WORK_ARCHIVE.filter(item => {
+        const artist = getArtistById(item.artistId);
+        const matchesQuery = !query ||
+          item.title.toLowerCase().includes(query) ||
+          item.programme.toLowerCase().includes(query) ||
+          item.summary.toLowerCase().includes(query) ||
+          artist.name.toLowerCase().includes(query);
+        const matchesProd = prodVal === `all` || item.production === prodVal;
+        const matchesStyle = styleVal === `all` || item.style === styleVal;
+        const matchesArtist = artistVal === `all` || item.artistId === artistVal;
+        return matchesQuery && matchesProd && matchesStyle && matchesArtist;
+      });
+
+      const countTag = document.getElementById(`archive-count-tag`);
+      if (countTag) {
+        countTag.textContent = `${filtered.length} ${filtered.length === 1 ? `Look` : `Looks`} Displayed`;
+      }
+
+      const grid = document.getElementById(`archive-grid`);
+      if (!grid) return;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="deco-frame" style="grid-column: 1 / -1;">
+            <span class="label-voice">No Archive Matches</span>
+            <p class="text-muted">No sample production looks matched your current filter combination.</p>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="resetArchiveFilters()">Reset Archive Filters</button>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(look => {
+        const artist = getArtistById(look.artistId);
+        return `
+          <article class="look-plate-card">
+            <div class="look-plate-visual">
+              ${buildLookPlateSvg(look, artist)}
+            </div>
+            <div class="look-plate-body">
+              <div class="row-wrap" style="justify-content: space-between;">
+                <span class="tag">${escapeHtml(look.production)}</span>
+                <span class="tag tag-rose">${escapeHtml(look.style)}</span>
+              </div>
+              <h3 class="deco-title" style="font-size: var(--subhead-size);">${escapeHtml(look.title)}</h3>
+              <span class="mono-voice text-gold">${escapeHtml(look.programme)}</span>
+              <p class="text-muted" style="margin: 0; font-size: 0.9rem;">${escapeHtml(look.summary)}</p>
+              <div class="row-wrap" style="justify-content: space-between; margin-top: auto; padding-top: var(--space-sm); border-top: var(--bronze-rule);">
+                <button type="button" class="btn btn-secondary btn-sm" onclick="inspectArchiveLook('${look.id}')">
+                  Inspect Look
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="openArtistPortfolio('${artist.id}')">
+                  ${escapeHtml(artist.name.split(` `)[0])}
+                </button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join(``);
+    }
+
+    function inspectArchiveLook(lookId) {
+      const look = WORK_ARCHIVE.find(l => l.id === lookId);
+      if (!look) return;
+      const artist = getArtistById(look.artistId);
+      const inspector = document.getElementById(`archive-inspector`);
+      if (!inspector) return;
+
+      inspector.style.display = `block`;
+      inspector.innerHTML = `
+        <div class="split-grid" style="align-items: center;">
+          <div class="look-plate-visual" style="border: var(--gold-rule);">
+            ${buildLookPlateSvg(look, artist)}
+          </div>
+          <div class="stack-sm">
+            <div class="row-wrap" style="justify-content: space-between;">
+              <span class="label-voice">Look Breakdown Inspector</span>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="closeArchiveInspector()">Close</button>
+            </div>
+            <h3 class="deco-title" style="font-size: var(--headline-size);">${escapeHtml(look.title)}</h3>
+            <span class="mono-voice text-gold">${escapeHtml(look.programme)} · ${escapeHtml(look.duration)}</span>
+            <p style="margin: 0;">${escapeHtml(look.summary)}</p>
+            <div class="row-wrap">
+              <span class="tag">Artist: ${escapeHtml(artist.name)}</span>
+              <span class="tag tag-rose">Lighting: ${escapeHtml(look.lighting)}</span>
+            </div>
+            <div class="row-wrap" style="padding-top: var(--space-xs);">
+              <span class="label-voice">Swatches Used:</span>
+              ${look.swatches.map(sw => `<span class="mini-pan" style="background-color: ${sw}; width: 24px; height: 24px;"></span>`).join(``)}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function closeArchiveInspector() {
+      const inspector = document.getElementById(`archive-inspector`);
+      if (inspector) inspector.style.display = `none`;
+    }
+
+    function resetArchiveFilters() {
+      const searchEl = document.getElementById(`archive-search`);
+      const prodEl = document.getElementById(`archive-production-filter`);
+      const styleEl = document.getElementById(`archive-style-filter`);
+      const artistEl = document.getElementById(`archive-artist-filter`);
+      if (searchEl) searchEl.value = ``;
+      if (prodEl) prodEl.value = `all`;
+      if (styleEl) styleEl.value = `all`;
+      if (artistEl) artistEl.value = `all`;
+      closeArchiveInspector();
+      applyArchiveFilters();
+    }
+
+    /* ============================================================
+       VIEW 4: SECURE ROSTER PORTAL (AUTH, ADMIN & MEMBER VIEWS)
+       ============================================================ */
+    function handleManualLogin(event) {
+      if (event) event.preventDefault();
+      const idInput = document.getElementById(`login-staff-id`);
+      const passInput = document.getElementById(`login-passcode`);
+      const feedback = document.getElementById(`login-feedback`);
+
+      const staffId = idInput ? idInput.value.trim().toUpperCase() : ``;
+      const passcode = passInput ? passInput.value.trim() : ``;
+
+      const userRecord = appState.users.find(u => u.staffId === staffId);
+      if (!userRecord || passcode !== `DERANA-2026`) {
+        appState.blockedAttempts += 1;
+        updateOverviewKpis();
+        persistState();
+        if (feedback) {
+          feedback.className = `text-error`;
+          feedback.textContent = `Access denied: Invalid Staff ID or Department Passcode. Unauthorised attempt logged (#${appState.blockedAttempts}).`;
+        }
+        return;
+      }
+
+      if (!userRecord.active) {
+        appState.blockedAttempts += 1;
+        updateOverviewKpis();
+        persistState();
+        if (feedback) {
+          feedback.className = `text-error`;
+          feedback.textContent = `Access suspended: ${userRecord.name}’s account is currently disabled by the Department Head.`;
+        }
+        return;
+      }
+
+      completeSignIn(userRecord);
+    }
+
+    function quickSignIn(staffId) {
+      const userRecord = appState.users.find(u => u.staffId === staffId);
+      const feedback = document.getElementById(`login-feedback`);
+      if (!userRecord) return;
+      if (!userRecord.active) {
+        appState.blockedAttempts += 1;
+        updateOverviewKpis();
+        persistState();
+        if (feedback) {
+          feedback.className = `text-error`;
+          feedback.textContent = `Account ${staffId} is currently suspended by the Department Head. Re-enable it from the Admin console or reset sample data.`;
+        }
+        return;
+      }
+      completeSignIn(userRecord);
+    }
+
+    function simulateUnauthorisedAttempt() {
+      appState.blockedAttempts += 1;
+      updateOverviewKpis();
+      persistState();
+      const feedback = document.getElementById(`login-feedback`);
+      if (feedback) {
+        feedback.className = `text-error`;
+        feedback.textContent = `Simulated external public-link access blocked cleanly (Total blocked attempts: ${appState.blockedAttempts}). Roster data remains encrypted and hidden.`;
+      }
+    }
+
+    function completeSignIn(userRecord) {
+      appState.authSession = {
+        loggedIn: true,
+        staffId: userRecord.staffId,
+        role: userRecord.role
+      };
+      persistState();
+      renderRosterPortal();
+      updateHeaderSessionBadge();
+      refreshIcons();
+    }
+
+    function signOutRoster() {
+      appState.authSession = {
+        loggedIn: false,
+        staffId: null,
+        role: null
+      };
+      appState.editingShiftId = null;
+      persistState();
+      renderRosterPortal();
+      updateHeaderSessionBadge();
+      refreshIcons();
+    }
+
+    function updateHeaderSessionBadge() {
+      const badge = document.getElementById(`header-session-badge`);
+      if (!badge) return;
+      if (!appState.authSession.loggedIn) {
+        badge.className = `tag`;
+        badge.textContent = `Public Showcase Mode`;
+      } else {
+        const user = appState.users.find(u => u.staffId === appState.authSession.staffId);
+        const label = appState.authSession.role === `admin` ? `Admin: ${user ? user.name : `Department Head`}` : `Member: ${user ? user.name : `Staff`}`;
+        badge.className = `tag tag-positive`;
+        badge.textContent = label;
+      }
+    }
+
+    function renderRosterPortal() {
+      const loginGate = document.getElementById(`roster-login-gate`);
+      const adminDash = document.getElementById(`admin-dashboard`);
+      const memberDash = document.getElementById(`member-dashboard`);
+      const headerActions = document.getElementById(`roster-header-actions`);
+
+      updateHeaderSessionBadge();
+
+      if (!appState.authSession.loggedIn) {
+        if (loginGate) loginGate.style.display = `grid`;
+        if (adminDash) adminDash.style.display = `none`;
+        if (memberDash) memberDash.style.display = `none`;
+        if (headerActions) {
+          headerActions.innerHTML = `<span class="tag tag-error">Authentication Required</span>`;
+        }
+        return;
+      }
+
+      if (loginGate) loginGate.style.display = `none`;
+      const currentUser = appState.users.find(u => u.staffId === appState.authSession.staffId);
+
+      if (headerActions) {
+        headerActions.innerHTML = `
+          <span class="tag tag-positive">${escapeHtml(currentUser ? currentUser.name : `Authenticated`)} · ${appState.authSession.role === `admin` ? `Admin` : `Member`}</span>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="signOutRoster()">
+            <i data-lucide="log-out" aria-hidden="true"></i>
+            Sign Out
+          </button>
+        `;
+      }
+
+      if (appState.authSession.role === `admin`) {
+        if (memberDash) memberDash.style.display = `none`;
+        if (adminDash) {
+          adminDash.style.display = `flex`;
+          renderAdminDashboard();
+        }
+      } else {
+        if (adminDash) adminDash.style.display = `none`;
+        if (memberDash) {
+          memberDash.style.display = `flex`;
+          renderMemberDashboard(currentUser);
+        }
+      }
+      refreshIcons();
+    }
+
+    /* ============================================================
+       ADMIN DASHBOARD (DEPARTMENT HEAD: UDAYANGA KAMALJITH)
+       ============================================================ */
+    function renderAdminDashboard() {
+      const container = document.getElementById(`admin-dashboard`);
+      if (!container) return;
+
+      const publishedCount = appState.shifts.filter(s => s.status === `Published`).length;
+      const draftCount = appState.shifts.filter(s => s.status === `Draft`).length;
+      const activeUsersCount = appState.users.filter(u => u.active).length;
+
+      const editingShift = appState.editingShiftId
+        ? appState.shifts.find(s => s.id === appState.editingShiftId)
+        : null;
+
+      const days = [`All`, `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday`, `Sunday`];
+      const filteredShifts = appState.rosterDayFilter === `All`
+        ? appState.shifts
+        : appState.shifts.filter(s => s.day === appState.rosterDayFilter);
+
+      container.innerHTML = `
+        <div class="status-banner is-positive">
+          <div class="stack-sm" style="gap: 2px;">
+            <span class="label-voice text-positive">Department Head Administrator Session Active — Udayanga Kamaljith</span>
+            <span class="text-muted" style="font-size: 0.875rem;">Full authority to create, edit, publish daily/weekly working rosters, and manage authorised member permissions.</span>
+          </div>
+          <div class="row-wrap">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="exportRosterCsv()">
+              <i data-lucide="download" aria-hidden="true"></i>
+              Export Weekly CSV
+            </button>
+            <button type="button" class="btn btn-danger btn-sm" onclick="resetSampleRosterData(this)">
+              Reset Sample Data
+            </button>
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <span class="label-voice">Active Staff Accounts</span>
+            <div class="kpi-value">0${activeUsersCount}</div>
+            <span class="kpi-note">Out of 6 department members</span>
+          </div>
+          <div class="kpi-card">
+            <span class="label-voice">Published Shifts</span>
+            <div class="kpi-value">${String(publishedCount).padStart(2, `0`)}</div>
+            <span class="kpi-note">Visible on member dashboards</span>
+          </div>
+          <div class="kpi-card">
+            <span class="label-voice">Unpublished Drafts</span>
+            <div class="kpi-value">${String(draftCount).padStart(2, `0`)}</div>
+            <span class="kpi-note">Hidden until published</span>
+          </div>
+          <div class="kpi-card">
+            <span class="label-voice">Blocked Access Attempts</span>
+            <div class="kpi-value">${String(appState.blockedAttempts).padStart(2, `0`)}</div>
+            <span class="kpi-note">Unauthorised views prevented</span>
+          </div>
+        </div>
+
+        <!-- Roster Creation & Edit Form -->
+        <form onsubmit="saveRosterShift(event)" class="deco-frame stack-md" style="text-align: left;">
+          <div class="row-wrap" style="justify-content: space-between;">
+            <span class="label-voice">${editingShift ? `Editing Shift ${escapeHtml(editingShift.id)}` : `Create New Daily / Weekly Shift`}</span>
+            ${editingShift ? `<button type="button" class="btn btn-secondary btn-sm" onclick="cancelEditShift()">Cancel Edit</button>` : ``}
+          </div>
+
+          <div class="form-grid">
+            <div class="field-group">
+              <label for="shift-day" class="field-label">Day of Week</label>
+              <select id="shift-day" class="field-control">
+                ${[`Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday`, `Sunday`].map(d =>
+                  `<option value="${d}" ${editingShift && editingShift.day === d ? `selected` : ``}>${d}</option>`
+                ).join(``)}
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label for="shift-date" class="field-label">Schedule Date</label>
+              <input id="shift-date" type="date" class="field-control" value="${editingShift ? escapeHtml(editingShift.date) : `2026-11-30`}">
+            </div>
+
+            <div class="field-group">
+              <label for="shift-time" class="field-label">Call &amp; Wrap Time</label>
+              <input id="shift-time" type="text" class="field-control" value="${editingShift ? escapeHtml(editingShift.time) : `08:00 – 16:30`}" required>
+            </div>
+
+            <div class="field-group">
+              <label for="shift-artist" class="field-label">Assigned Makeup Artist</label>
+              <select id="shift-artist" class="field-control">
+                ${ARTISTS.map(a =>
+                  `<option value="${escapeHtml(a.id)}" ${editingShift && editingShift.artistId === a.id ? `selected` : ``}>${escapeHtml(a.name)}</option>`
+                ).join(``)}
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label for="shift-studio" class="field-label">Studio / Production</label>
+              <input id="shift-studio" type="text" class="field-control" value="${editingShift ? escapeHtml(editingShift.studio) : `Studio A · Evening Broadcast`}" required>
+            </div>
+
+            <div class="field-group">
+              <label for="shift-duty" class="field-label">Duty Assignment</label>
+              <input id="shift-duty" type="text" class="field-control" value="${editingShift ? escapeHtml(editingShift.duty) : `Anchor & Guest Styling`}" required>
+            </div>
+
+            <div class="field-group">
+              <label for="shift-status" class="field-label">Publication Status</label>
+              <select id="shift-status" class="field-control">
+                <option value="Published" ${editingShift && editingShift.status === `Published` ? `selected` : ``}>Published (Visible to Staff)</option>
+                <option value="Draft" ${editingShift && editingShift.status === `Draft` ? `selected` : ``}>Draft (Admin Only)</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label for="shift-notes" class="field-label">Call Sheet Notes</label>
+              <input id="shift-notes" type="text" class="field-control" value="${editingShift ? escapeHtml(editingShift.notes) : `4K HD matte kit & continuity check.`}">
+            </div>
+          </div>
+
+          <div class="row-wrap" style="justify-content: space-between;">
+            <span id="admin-form-status" class="text-muted" style="font-size: 0.875rem;" aria-live="polite"></span>
+            <button type="submit" class="btn btn-primary">
+              <i data-lucide="save" aria-hidden="true"></i>
+              ${editingShift ? `Update Roster Shift` : `Add Shift to Roster`}
+            </button>
+          </div>
+        </form>
+
+        <!-- Weekly Roster Table -->
+        <div class="stack-md">
+          <div class="section-head">
+            <div>
+              <span class="label-voice">Master Schedule Control</span>
+              <h3 class="section-title">Daily &amp; Weekly Working Roster</h3>
+            </div>
+            <div class="row-wrap">
+              ${days.map(d => `
+                <button type="button" class="btn btn-sm ${d === appState.rosterDayFilter ? `btn-primary` : `btn-secondary`}" onclick="setRosterDayFilter('${d}')">
+                  ${d}
+                </button>
+              `).join(``)}
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="roster-table">
+              <thead>
+                <tr>
+                  <th>Day &amp; Date</th>
+                  <th>Time</th>
+                  <th>Assigned Artist</th>
+                  <th>Studio &amp; Duty</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${filteredShifts.length === 0 ? `
+                  <tr><td colspan="6" style="text-align: center;" class="text-muted">No shifts scheduled for ${escapeHtml(appState.rosterDayFilter)}.</td></tr>
+                ` : filteredShifts.map(sh => {
+                  const artist = getArtistById(sh.artistId);
+                  return `
+                    <tr>
+                      <td>
+                        <strong>${escapeHtml(sh.day)}</strong><br>
+                        <span class="mono-voice text-muted">${escapeHtml(sh.date)}</span>
+                      </td>
+                      <td class="mono-voice">${escapeHtml(sh.time)}</td>
+                      <td>
+                        <strong>${escapeHtml(artist.name)}</strong><br>
+                        <span class="mono-voice text-muted">${escapeHtml(artist.staffId)}</span>
+                      </td>
+                      <td>
+                        <strong>${escapeHtml(sh.studio)}</strong><br>
+                        <span class="text-muted" style="font-size: 0.85rem;">${escapeHtml(sh.duty)} — ${escapeHtml(sh.notes)}</span>
+                      </td>
+                      <td>
+                        <span class="tag ${sh.status === `Published` ? `tag-positive` : `tag-rose`}">${escapeHtml(sh.status)}</span>
+                      </td>
+                      <td>
+                        <div class="row-wrap">
+                          <button type="button" class="btn btn-secondary btn-sm" onclick="toggleShiftPublish('${sh.id}')">
+                            ${sh.status === `Published` ? `Unpublish` : `Publish`}
+                          </button>
+                          <button type="button" class="btn btn-secondary btn-sm" onclick="startEditShift('${sh.id}')">
+                            Edit
+                          </button>
+                          <button type="button" class="btn btn-danger btn-sm" onclick="deleteShift('${sh.id}', this)">
+                            Remove
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  `;
+                }).join(``)}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- User Access Control Panel -->
+        <div class="stack-md">
+          <div class="section-head">
+            <div>
+              <span class="label-voice">User Management &amp; Permissions</span>
+              <h3 class="section-title">Authorised Department Accounts</h3>
+            </div>
+            <span class="tag">Public Registration Disabled</span>
+          </div>
+
+          <div class="table-wrap">
+            <table class="roster-table">
+              <thead>
+                <tr>
+                  <th>Staff ID</th>
+                  <th>Department Member</th>
+                  <th>Access Role</th>
+                  <th>Account Status</th>
+                  <th>Access Control</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${appState.users.map(u => `
+                  <tr>
+                    <td class="mono-voice text-gold">${escapeHtml(u.staffId)}</td>
+                    <td><strong>${escapeHtml(u.name)}</strong></td>
+                    <td><span class="tag">${escapeHtml(u.roleLabel)}</span></td>
+                    <td>
+                      <span class="tag ${u.active ? `tag-positive` : `tag-error`}">
+                        ${u.active ? `Active` : `Suspended`}
+                      </span>
+                    </td>
+                    <td>
+                      ${u.role === `admin` ? `
+                        <span class="mono-voice text-muted">Primary Administrator (Locked)</span>
+                      ` : `
+                        <button type="button" class="btn btn-sm ${u.active ? `btn-danger` : `btn-primary`}" onclick="toggleUserAccess('${u.staffId}')">
+                          ${u.active ? `Suspend Access` : `Restore Access`}
+                        </button>
+                      `}
+                    </td>
+                  </tr>
+                `).join(``)}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function setRosterDayFilter(day) {
+      appState.rosterDayFilter = day;
+      renderAdminDashboard();
+      refreshIcons();
+    }
+
+    function saveRosterShift(event) {
+      if (event) event.preventDefault();
+      const dayEl = document.getElementById(`shift-day`);
+      const dateEl = document.getElementById(`shift-date`);
+      const timeEl = document.getElementById(`shift-time`);
+      const artistEl = document.getElementById(`shift-artist`);
+      const studioEl = document.getElementById(`shift-studio`);
+      const dutyEl = document.getElementById(`shift-duty`);
+      const statusEl = document.getElementById(`shift-status`);
+      const notesEl = document.getElementById(`shift-notes`);
+
+      const payload = {
+        id: appState.editingShiftId || `SH-${Math.floor(110 + Math.random() * 880)}`,
+        day: dayEl ? dayEl.value : `Monday`,
+        date: dateEl ? dateEl.value : `2026-11-30`,
+        time: timeEl ? timeEl.value.trim() : `08:00 – 16:30`,
+        artistId: artistEl ? artistEl.value : `udayanga`,
+        studio: studioEl ? studioEl.value.trim() : `Studio A`,
+        duty: dutyEl ? dutyEl.value.trim() : `Broadcast Makeup`,
+        status: statusEl ? statusEl.value : `Published`,
+        notes: notesEl ? notesEl.value.trim() : ``
+      };
+
+      if (appState.editingShiftId) {
+        const idx = appState.shifts.findIndex(s => s.id === appState.editingShiftId);
+        if (idx !== -1) appState.shifts[idx] = payload;
+        appState.editingShiftId = null;
+      } else {
+        appState.shifts.unshift(payload);
+      }
+
+      persistState();
+      updateOverviewKpis();
+      renderAdminDashboard();
+      refreshIcons();
+    }
+
+    function startEditShift(shiftId) {
+      appState.editingShiftId = shiftId;
+      renderAdminDashboard();
+      refreshIcons();
+    }
+
+    function cancelEditShift() {
+      appState.editingShiftId = null;
+      renderAdminDashboard();
+      refreshIcons();
+    }
+
+    function toggleShiftPublish(shiftId) {
+      const sh = appState.shifts.find(s => s.id === shiftId);
+      if (!sh) return;
+      sh.status = sh.status === `Published` ? `Draft` : `Published`;
+      persistState();
+      updateOverviewKpis();
+      renderAdminDashboard();
+      refreshIcons();
+    }
+
+    function deleteShift(shiftId, btn) {
+      if (btn && btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Confirm Remove`;
+        return;
+      }
+      appState.shifts = appState.shifts.filter(s => s.id !== shiftId);
+      if (appState.editingShiftId === shiftId) appState.editingShiftId = null;
+      persistState();
+      updateOverviewKpis();
+      renderAdminDashboard();
+      refreshIcons();
+    }
+
+    function toggleUserAccess(staffId) {
+      const user = appState.users.find(u => u.staffId === staffId);
+      if (!user || user.role === `admin`) return;
+      user.active = !user.active;
+      persistState();
+      renderAdminDashboard();
+      refreshIcons();
+    }
+
+    function resetSampleRosterData(btn) {
+      if (btn && btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Click Again to Confirm Reset`;
+        return;
+      }
+      appState.shifts = JSON.parse(JSON.stringify(DEFAULT_SHIFTS));
+      appState.users = JSON.parse(JSON.stringify(DEFAULT_USERS));
+      appState.blockedAttempts = 3;
+      appState.editingShiftId = null;
+      appState.rosterDayFilter = `All`;
+      persistState();
+      updateOverviewKpis();
+      renderAdminDashboard();
+      refreshIcons();
+    }
+
+    function exportRosterCsv() {
+      const header = `Shift ID,Day,Date,Time,Artist,Staff ID,Studio,Duty,Status,Notes`;
+      const rows = appState.shifts.map(sh => {
+        const artist = getArtistById(sh.artistId);
+        return [
+          sh.id, sh.day, sh.date, sh.time,
+          `"${artist.name}"`, artist.staffId,
+          `"${sh.studio}"`, `"${sh.duty}"`, sh.status, `"${sh.notes}"`
+        ].join(`,`);
+      });
+      const csvContent = [header, ...rows].join(`\n`);
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === `function`) {
+        window.notebookAppApi.triggerFileDownload({
+          content: csvContent,
+          contentType: `text/csv`,
+          encoding: `UTF-8`,
+          filename: `dtv_makeup_weekly_roster.csv`
+        });
+      }
+    }
+
+    /* ============================================================
+       MEMBER DASHBOARD (AUTHORISED ARTISTS READ-ONLY)
+       ============================================================ */
+    function renderMemberDashboard(userRecord) {
+      const container = document.getElementById(`member-dashboard`);
+      if (!container || !userRecord) return;
+
+      const artist = getArtistById(userRecord.artistId);
+      const publishedShifts = appState.shifts.filter(s => s.status === `Published`);
+      const myShifts = publishedShifts.filter(s => s.artistId === artist.id);
+
+      container.innerHTML = `
+        <div class="status-banner">
+          <div class="stack-sm" style="gap: 2px;">
+            <span class="label-voice">Authorised Member View — ${escapeHtml(artist.name)} (${escapeHtml(artist.staffId)})</span>
+            <span class="text-muted" style="font-size: 0.875rem;">
+              Read-only duty schedule access. Only the Department Head (Udayanga Kamaljith) may modify or unpublish working rosters.
+            </span>
+          </div>
+          <div class="row-wrap">
+            <span class="tag tag-rose">Edit / Delete Locked</span>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="openArtistPortfolio('${artist.id}')">
+              View My Portfolio
+            </button>
+          </div>
+        </div>
+
+        <!-- Personalised Duty Summary -->
+        <div class="stack-md">
+          <div class="section-head">
+            <div>
+              <span class="label-voice">Personalised Assignments</span>
+              <h3 class="section-title">My Upcoming Broadcast Shifts</h3>
+            </div>
+            <span class="tag tag-positive">${myShifts.length} Published ${myShifts.length === 1 ? `Shift` : `Shifts`}</span>
+          </div>
+
+          ${myShifts.length === 0 ? `
+            <div class="deco-frame">
+              <p class="text-muted" style="margin: 0;">You currently have no published shifts assigned for this week.</p>
+            </div>
+          ` : `
+            <div class="card-grid">
+              ${myShifts.map(sh => `
+                <div class="deco-frame stack-sm" style="text-align: left;">
+                  <div class="row-wrap" style="justify-content: space-between;">
+                    <span class="label-voice">${escapeHtml(sh.day)} · ${escapeHtml(sh.date)}</span>
+                    <span class="tag tag-positive">${escapeHtml(sh.status)}</span>
+                  </div>
+                  <div class="mono-voice text-gold" style="font-size: 1rem;">${escapeHtml(sh.time)}</div>
+                  <strong style="font-family: var(--font-headline); text-transform: uppercase; letter-spacing: 0.08em;">${escapeHtml(sh.studio)}</strong>
+                  <p style="margin: 0; font-size: 0.92rem;">${escapeHtml(sh.duty)}</p>
+                  <span class="text-muted" style="font-size: 0.85rem;">Call Sheet: ${escapeHtml(sh.notes)}</span>
+                </div>
+              `).join(``)}
+            </div>
+          `}
+        </div>
+
+        <!-- Department Published Weekly Roster (Read-Only) -->
+        <div class="stack-md">
+          <div class="section-head">
+            <div>
+              <span class="label-voice">Full Department Visibility</span>
+              <h3 class="section-title">Latest Published Weekly Schedule</h3>
+            </div>
+            <span class="mono-voice text-muted">Drafts hidden automatically</span>
+          </div>
+
+          <div class="table-wrap">
+            <table class="roster-table">
+              <thead>
+                <tr>
+                  <th>Day &amp; Date</th>
+                  <th>Call Time</th>
+                  <th>Assigned Artist</th>
+                  <th>Studio &amp; Production</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${publishedShifts.map(sh => {
+                  const rowArtist = getArtistById(sh.artistId);
+                  const isMe = rowArtist.id === artist.id;
+                  return `
+                    <tr>
+                      <td>
+                        <strong>${escapeHtml(sh.day)}</strong><br>
+                        <span class="mono-voice text-muted">${escapeHtml(sh.date)}</span>
+                      </td>
+                      <td class="mono-voice">${escapeHtml(sh.time)}</td>
+                      <td>
+                        <strong>${escapeHtml(rowArtist.name)}</strong>
+                        ${isMe ? `<span class="tag tag-positive" style="margin-left: var(--space-xs);">You</span>` : ``}
+                      </td>
+                      <td>
+                        <strong>${escapeHtml(sh.studio)}</strong><br>
+                        <span class="text-muted" style="font-size: 0.85rem;">${escapeHtml(sh.duty)}</span>
+                      </td>
+                      <td class="text-muted" style="font-size: 0.875rem;">${escapeHtml(sh.notes)}</td>
+                    </tr>
+                  `;
+                }).join(``)}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    /* ============================================================
+       INITIALIZATION & STATE HYDRATION
+       ============================================================ */
+    async function initApp() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            if (typeof saved.introDismissed === `boolean`) appState.introDismissed = saved.introDismissed;
+            if (typeof saved.blockedAttempts === `number`) appState.blockedAttempts = saved.blockedAttempts;
+            if (saved.authSession && typeof saved.authSession === `object`) appState.authSession = saved.authSession;
+            if (Array.isArray(saved.shifts) && saved.shifts.length > 0) appState.shifts = saved.shifts;
+            if (Array.isArray(saved.users) && saved.users.length > 0) appState.users = saved.users;
+          }
+        } catch (err) {
+          /* Use defaults if state unavailable */
+        }
+      }
+
+      if (appState.introDismissed) {
+        const overlay = document.getElementById(`intro-overlay`);
+        if (overlay) overlay.classList.add(`is-hidden`);
+      }
+
+      renderOverview();
+      renderArtistsDirectory();
+      initArchiveFilters();
+      renderRosterPortal();
+      refreshIcons();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
+</body>
+</html>
